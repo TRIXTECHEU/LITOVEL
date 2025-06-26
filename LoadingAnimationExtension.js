@@ -6,46 +6,94 @@ window.LoadingAnimationExtension = {
   render: ({ trace, element }) => {
     const payload = trace.payload || {};
     const phase = payload.phase || 'output';
-    const lang = 'cs';
+
+    const incomingLang = (payload.lang || 'cs').toLowerCase().trim();
+
+    let lang;
+    if (incomingLang.includes('cs') || incomingLang.includes('czech')) lang = 'cs';
+    else if (incomingLang.includes('en') || incomingLang.includes('english')) lang = 'en';
+    else lang = 'cs';
+
     const type = (payload.type || 'SMT').toUpperCase();
 
     const messageSequences = {
       cs: {
         analysis: {
-          DEFAULT: ['Chvilku strpení.'],
-          SMT: ['Zpracovávám váš dotaz.', 'Ještě okamžik.'],
-          SWEARS: ['Zpracovávám dotaz.', 'Chvilku strpení.'],
-          OTHER: ['Zkoumám zadání.', 'Ještě moment.'],
-          KB: ['Zjišťuji souvislosti.', 'Zpracovávám data.', 'Chvilku strpení.'],
-          KB_WS: ['Hledám odpověď.', 'Zpracovávám informace.', 'Ještě okamžik.']
+          DEFAULT: ['Vydržte moment'],
+          SMT: ['Analyzuji dotaz', 'Vydržte moment'],
+          SWEARS: ['Analyzuji dotaz', 'Vydržte moment'],
+          OTHER: ['Analyzuji dotaz', 'Vydržte moment'],
+          KB: ['Analyzuji dotaz', 'Zpracovávám váš dotaz', 'Vydržte moment'],
+          KB_WS: ['Analyzuji dotaz', 'Zpracovávám váš dotaz', 'Vydržte moment']
         },
-        rewrite: ['Připravuji výstižnější odpověď.'],
+        rewrite: ['Zpracovávám Váš dotaz'],
         output: {
-          SMT: ['Tvořím odpověď.'],
+          SMT: ['Dokončuji odpověď'],
           KB_WS: [
-            'Hledám v databázi Twineru.',
-            'Získávám relevantní informace.',
-            'Formuluji odpověď.'
+            'Hledám v databázi',
+            'Prohledávám webové zdroje',
+            'Připravuji odpověď',
+            'Píši odpověď'
           ],
-          OTHER: ['Ověřuji vhodnost obsahu.'],
-          SWEARS: ['Kontroluji jazykový obsah.'],
+          OTHER: ['Nacházím nevhodný výraz'],
+          SWEARS: ['Nacházím nevhodný výraz'],
           KB: [
-            'Získávám informace.',
-            'Zpracovávám odpověď.',
-            'Formuluji reakci.'
+            'Hledám v databázi',
+            'Připravuji odpověď',
+            'Píši odpověď'
           ]
         },
         all: {
           KB: [
-            'Procházím databázi Twineru.',
-            'Ověřuji dostupná fakta.',
-            'Připravuji odpověď.'
+            'Prohledávám svou databázi',
+            'Ověřuji informace',
+            'Připravuji svoji odpověď'
           ],
           KB_WS: [
-            'Hledám v databázi Twineru.',
-            'Analyzuji webové zdroje.',
-            'Ověřuji souvislosti.',
-            'Píši odpověď.'
+            'Prohledávám svou databázi',
+            'Prohledávám webové zdroje',
+            'Ověřuji informace',
+            'Připravuji svoji odpověď'
+          ]
+        }
+      },
+      en: {
+        analysis: {
+          DEFAULT: ['Hold on a moment'],
+          SMT: ['Analyzing query.', 'Hold on a moment'],
+          SWEARS: ['Analyzing query.', 'Hold on a moment'],
+          OTHER: ['Analyzing query.', 'Hold on a moment'],
+          KB: ['Analyzing query.', 'Processing your query.', 'Hold on a moment'],
+          KB_WS: ['Analyzing query.', 'Processing your query.', 'Hold on a moment']
+        },
+        rewrite: ['Processing your query.'],
+        output: {
+          SMT: ['I am completing my response.'],
+          KB_WS: [
+            'I am searching the database.',
+            'I am searching web sources.',
+            'I am preparing my response.',
+            'I am writing my response.'
+          ],
+          OTHER: ['I am detecting inappropriate content.'],
+          SWEARS: ['I am detecting inappropriate content.'],
+          KB: [
+            'I am searching the database.',
+            'I am preparing my response.',
+            'I am writing my response.'
+          ]
+        },
+        all: {
+          KB: [
+            'I am searching my database.',
+            'I am verifying information.',
+            'I am preparing my response.'
+          ],
+          KB_WS: [
+            'I am searching my database.',
+            'I am searching web sources.',
+            'I am verifying information.',
+            'I am preparing my response.'
           ]
         }
       }
