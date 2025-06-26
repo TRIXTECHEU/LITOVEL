@@ -11,8 +11,6 @@ window.LoadingAnimationExtension = {
 
     if (incomingLang.includes('cs') || incomingLang.includes('czech')) lang = 'cs';
     else if (incomingLang.includes('en') || incomingLang.includes('english')) lang = 'en';
-    else if (incomingLang.includes('de') || incomingLang.includes('german')) lang = 'de';
-    else if (incomingLang.includes('uk') || incomingLang.includes('ukrainian')) lang = 'uk';
     else lang = 'cs';
 
 
@@ -99,86 +97,6 @@ window.LoadingAnimationExtension = {
           ]
         }
       },
-      de: {
-        analysis: {
-          DEFAULT: ['Einen Moment bitte'],
-          SMT: ['Anfrage wird analysiert.', 'Einen Moment bitte'],
-          SWEARS: ['Anfrage wird analysiert.', 'Einen Moment bitte'],
-          OTHER: ['Anfrage wird analysiert.', 'Einen Moment bitte'],
-          KB: ['Anfrage wird analysiert.', 'Ihre Anfrage wird bearbeitet.', 'Einen Moment bitte'],
-          KB_WS: ['Anfrage wird analysiert.', 'Ihre Anfrage wird bearbeitet.', 'Einen Moment bitte']
-        },
-        rewrite: ['Ihre Anfrage wird bearbeitet.'],
-        output: {
-          SMT: ['Ich bin dabei, meine Antwort fertigzustellen.'],
-          KB_WS: [
-            'Ich bin dabei, die Datenbank zu durchsuchen.',
-            'Ich bin dabei, Web-Quellen zu durchsuchen.',
-            'Ich bin dabei, meine Antwort vorzubereiten.',
-            'Ich bin dabei, meine Antwort zu schreiben.'
-          ],
-          OTHER: ['Ich bin dabei, unangemessenen Inhalt zu erkennen.'],
-          SWEARS: ['Ich bin dabei, unangemessenen Inhalt zu erkennen.'],
-          KB: [
-            'Ich bin dabei, die Datenbank zu durchsuchen.',
-            'Ich bin dabei, meine Antwort vorzubereiten.',
-            'Ich bin dabei, meine Antwort zu schreiben.'
-          ]
-        },
-        all: {
-          KB: [
-            'Ich durchsuche meine Datenbank.',
-            'Ich überprüfe die Informationen.',
-            'Ich bereite meine Antwort vor.'
-          ],
-          KB_WS: [
-            'Ich durchsuche meine Datenbank.',
-            'Ich durchsuche Web-Quellen.',
-            'Ich überprüfe die Informationen.',
-            'Ich bereite meine Antwort vor.'
-          ]
-        }
-      },
-      uk: {
-        analysis: {
-          DEFAULT: ['Зачекайте хвилинку'],
-          SMT: ['Аналізую запит.', 'Зачекайте хвилинку'],
-          SWEARS: ['Аналізую запит.', 'Зачекайте хвилинку'],
-          OTHER: ['Аналізую запит.', 'Зачекайте хвилинку'],
-          KB: ['Аналізую запит.', 'Обробляю ваш запит.', 'Зачекайте хвилинку'],
-          KB_WS: ['Аналізую запит.', 'Обробляю ваш запит.', 'Зачекайте хвилинку']
-        },
-        rewrite: ['Обробляю ваш запит.'],
-        output: {
-          SMT: ['Зараз завершую відповідь.'],
-          KB_WS: [
-            'Зараз шукаю в базі даних.',
-            'Зараз шукаю веб-джерела.',
-            'Зараз готую відповідь.',
-            'Зараз пишу відповідь.'
-          ],
-          OTHER: ['Зараз виявляю недоречний зміст.'],
-          SWEARS: ['Зараз виявляю недоречний зміст.'],
-          KB: [
-            'Зараз шукаю в базі даних.',
-            'Зараз готую відповідь.',
-            'Зараз пишу відповідь.'
-          ]
-        },
-        all: {
-          KB: [
-            'Шукаю у своїй базі даних.',
-            'Перевіряю інформацію.',
-            'Готую свою відповідь.'
-          ],
-          KB_WS: [
-            'Шукаю у своїй базі даних.',
-            'Шукаю веб-джерела.',
-            'Перевіряю інформацію.',
-            'Готую свою відповідь.'
-          ]
-        }
-      }
     };
 
     try {
@@ -341,12 +259,7 @@ window.LoadingAnimationExtension = {
       const spinnerAnimationContainer = document.createElement('div');
       spinnerAnimationContainer.className = 'rotating-point-spinner';
 
-      const mainColour = trace.payload?.mainColour;
-      if (mainColour && typeof mainColour === 'string') {
-        if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(mainColour)) {
-          spinnerAnimationContainer.style.setProperty('--spinner-point-colour', mainColour);
-        }
-      }
+      spinnerAnimationContainer.style.setProperty('--spinner-point-colour', '#006FB9');
 
       loadingBox.appendChild(spinnerAnimationContainer);
 
