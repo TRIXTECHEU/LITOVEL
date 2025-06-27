@@ -1,361 +1,167 @@
-window.LoadingAnimationExtension = {
+wwindow.LoadingAnimationExtension = {
   name: 'LoadingAnimation',
-  type: 'response',
+  type: 'ext_loadingAnimation',
   match: ({ trace }) =>
-    trace.type === 'ext_loadingAnimation' || trace.payload?.name === 'ext_loadingAnimation',
+    trace.type === 'ext_loadingAnimation' ||
+    trace.payload?.type === 'ext_loadingAnimation',
   render: ({ trace, element }) => {
     const payload = trace.payload || {};
-    const phase = payload.phase || 'output';
-
+    const phase = payload.phase || 'output';           // 'analysis', 'all' or 'output'
     const incomingLang = (payload.lang || 'cs').toLowerCase().trim();
 
-    if (incomingLang.includes('cs') || incomingLang.includes('czech')) lang = 'cs';
-    else if (incomingLang.includes('en') || incomingLang.includes('english')) lang = 'en';
-    else lang = 'cs';
+    // správná deklarace proměnné
+    let lang;
+    if (incomingLang.includes('cs') || incomingLang.includes('czech')) {
+      lang = 'cs';
+    } else if (incomingLang.includes('en') || incomingLang.includes('english')) {
+      lang = 'en';
+    } else {
+      lang = 'cs';
+    }
 
-
-    const type = (payload.type || 'SMT').toUpperCase();
+    const type = (payload.type || 'SMT').toUpperCase(); // 'SMT', 'KB', 'KB_WS', etc.
 
     const messageSequences = {
       cs: {
         analysis: {
           DEFAULT: ['Vydržte moment'],
           SMT: ['Analyzuji dotaz', 'Vydržte moment'],
-          SWEARS: ['Analyzuji dotaz', 'Vydržte moment'],
-          OTHER: ['Analyzuji dotaz', 'Vydržte moment'],
           KB: ['Analyzuji dotaz', 'Zpracovávám váš dotaz', 'Vydržte moment'],
-          KB_WS: ['Analyzuji dotaz', 'Zpracovávám váš dotaz', 'Vydržte moment']
+          KB_WS: ['Analyzuji dotaz', 'Zpracovávám váš dotaz', 'Vydržte moment'],
+          OTHER: ['Analyzuji dotaz', 'Vydržte moment'],
+          SWEARS: ['Analyzuji dotaz', 'Vydržte moment']
         },
-        rewrite: ['Zpracovávám Váš dotaz'],
         output: {
           SMT: ['Dokončuji odpověď'],
-          KB_WS: [
-            'Hledám v databázi',
-            'Prohledávám webové zdroje',
-            'Připravuji odpověď',
-            'Píši odpověď'
-          ],
+          KB: ['Připravuji odpověď', 'Píši odpověď'],
+          KB_WS: ['Hledám v databázi', 'Prohledávám webové zdroje', 'Připravuji odpověď', 'Píši odpověď'],
           OTHER: ['Nacházím nevhodný výraz'],
-          SWEARS: ['Nacházím nevhodný výraz'],
-          KB: [
-            'Hledám v databázi',
-            'Připravuji odpověď',
-            'Píši odpověď'
-          ]
+          SWEARS: ['Nacházím nevhodný výraz']
         },
         all: {
-          KB: [
-            'Prohledávám svou databázi',
-            'Ověřuji informace',
-            'Připravuji svoji odpověď'
-          ],
-          KB_WS: [
-            'Prohledávám svou databázi',
-            'Prohledávám webové zdroje',
-            'Ověřuji informace',
-            'Připravuji svoji odpověď'
-          ]
+          KB: ['Prohledávám svou databázi', 'Ověřuji informace', 'Připravuji svoji odpověď'],
+          KB_WS: ['Prohledávám svou databázi', 'Prohledávám webové zdroje', 'Ověřuji informace', 'Připravuji svoji odpověď']
         }
       },
       en: {
         analysis: {
           DEFAULT: ['Hold on a moment'],
           SMT: ['Analyzing query.', 'Hold on a moment'],
-          SWEARS: ['Analyzing query.', 'Hold on a moment'],
-          OTHER: ['Analyzing query.', 'Hold on a moment'],
           KB: ['Analyzing query.', 'Processing your query.', 'Hold on a moment'],
-          KB_WS: ['Analyzing query.', 'Processing your query.', 'Hold on a moment']
+          KB_WS: ['Analyzing query.', 'Processing your query.', 'Hold on a moment'],
+          OTHER: ['Analyzing query.', 'Hold on a moment'],
+          SWEARS: ['Analyzing query.', 'Hold on a moment']
         },
-        rewrite: ['Processing your query.'],
         output: {
           SMT: ['I am completing my response.'],
-          KB_WS: [
-            'I am searching the database.',
-            'I am searching web sources.',
-            'I am preparing my response.',
-            'I am writing my response.'
-          ],
+          KB: ['I am preparing my response.', 'I am writing my response.'],
+          KB_WS: ['I am searching the database.', 'I am searching web sources.', 'I am preparing my response.', 'I am writing my response.'],
           OTHER: ['I am detecting inappropriate content.'],
-          SWEARS: ['I am detecting inappropriate content.'],
-          KB: [
-            'I am searching the database.',
-            'I am preparing my response.',
-            'I am writing my response.'
-          ]
+          SWEARS: ['I am detecting inappropriate content.']
         },
         all: {
-          KB: [
-            'I am searching my database.',
-            'I am verifying information.',
-            'I am preparing my response.'
-          ],
-          KB_WS: [
-            'I am searching my database.',
-            'I am searching web sources.',
-            'I am verifying information.',
-            'I am preparing my response.'
-          ]
+          KB: ['I am searching my database.', 'I am verifying information.', 'I am preparing my response.'],
+          KB_WS: ['I am searching my database.', 'I am searching web sources.', 'I am verifying information.', 'I am preparing my response.']
         }
-      },
+      }
     };
 
     try {
+      // pauza na základě payload.duration (v sekundách)
       const customDurationSeconds = payload.duration;
-
-      let messages;
-      if (phase === 'all' && (type === 'KB' || type === 'KB_WS')) {
-        messages = messageSequences[lang]?.all?.[type];
-      } else if (phase === 'output') {
-        messages = messageSequences[lang]?.output?.[type];
-      } else if (phase === 'analysis') {
-        messages = messageSequences[lang]?.[phase]?.[type] || messageSequences[lang]?.[phase]?.DEFAULT;
-      } else {
-        messages = messageSequences[lang]?.[phase];
-      }
-
-      if (!messages || messages.length === 0) {
-        return;
-      }
-
       let totalDuration;
-      if (customDurationSeconds !== undefined && typeof customDurationSeconds === 'number' && customDurationSeconds > 0) {
+
+      if (typeof customDurationSeconds === 'number' && customDurationSeconds > 0) {
         totalDuration = customDurationSeconds * 1000;
       } else {
+        // fallback dle fáze a typu
         if (phase === 'analysis') {
-          if (type === 'SMT' || type === 'SWEARS' || type === 'OTHER') {
-            totalDuration = 4000;
-          } else if (type === 'KB' || type === 'KB_WS') {
-            totalDuration = 12000;
-          } else {
-            totalDuration = 3000;
-          }
+          totalDuration = (type === 'KB' || type === 'KB_WS') ? 12000 : 4000;
         } else if (phase === 'output') {
-          if (type === 'SMT' || type === 'SWEARS' || type === 'OTHER') {
-            totalDuration = 4000;
-          } else if (type === 'KB') {
-            totalDuration = 12000;
-          } else if (type === 'KB_WS') {
-            totalDuration = 23000;
-          } else {
-            totalDuration = 3000;
-          }
+          totalDuration = (type === 'KB_WS') ? 23000
+                        : (type === 'KB')   ? 12000
+                        : 4000;
         } else {
           totalDuration = 3000;
         }
       }
 
-      const messageInterval = totalDuration / messages.length;
+      const messages = 
+        phase === 'all'
+          ? messageSequences[lang].all[type] || []
+          : messageSequences[lang][phase][type] || messageSequences[lang][phase].DEFAULT;
+
+      if (!messages.length) return;
 
       const container = document.createElement('div');
       container.className = 'vfrc-message vfrc-message--extension LoadingAnimation';
 
+      // styl kontejneru
       const style = document.createElement('style');
       style.textContent = `
-        .vfrc-message.vfrc-message--extension.LoadingAnimation {
-          opacity: 1;
-          transition: opacity 0.3s ease-out;
-          width: 100%;
-          display: block;
-        }
-
-        .vfrc-message.vfrc-message--extension.LoadingAnimation.hide {
-          opacity: 0;
-          visibility: hidden;
-          pointer-events: none;
-        }
-
-        .loading-box {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 8px 12px;
-          margin: 0;
-          width: 100%;
-          box-sizing: border-box;
-          background-color: #F9FAFB;
-          border-radius: 12px;
-          border: 1px solid #E5E7EB;
-        }
-
-        .loading-text {
-          color: rgba(26, 30, 35, 0.7);
-          font-size: 12px;
-          line-height: 1.3;
-          font-family: var(--_1bof89na);
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          max-width: 100%;
-          opacity: 1;
-          transform: translateY(0);
-          transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-          flex: 1;
-          min-width: 0;
-          font-style: italic;
-        }
-
-        .loading-text.changing {
-          opacity: 0;
-          transform: translateY(-5px);
-        }
-
-        .loading-text.entering {
-          opacity: 0;
-          transform: translateY(5px);
-        }
-
-        @keyframes loading-spinner-spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-
-        .rotating-point-spinner {
-          position: relative;
-          width: 16px;
-          height: 16px;
-          animation: loading-spinner-spin 0.9s linear infinite;
-          flex-shrink: 0;
-          transition: opacity 0.3s ease-out, width 0.3s ease-out;
-          opacity: 1;
-        }
-
-        .rotating-point-spinner::before {
-          content: "";
-          box-sizing: border-box;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          border: 2px solid rgba(0, 0, 0, 0.12);
-        }
-
-        .rotating-point-spinner::after {
-          content: "";
-          box-sizing: border-box;
-          position: absolute;
-          width: 5px;
-          height: 5px;
-          background-color: var(--spinner-point-colour, #696969);
-          border-radius: 50%;
-          top: -1.5px; 
-          left: calc(50% - 2.5px);
-        }
-
-        .rotating-point-spinner.hide {
-          opacity: 0;
-          visibility: hidden;
-          width: 0 !important;
-          display: none;
-          /* margin-right: 0 !important;
-        }
+        .vfrc-message--extension.LoadingAnimation { opacity:1; transition:opacity .3s; width:100%; }
+        .vfrc-message--extension.LoadingAnimation.hide { opacity:0; visibility:hidden; }
+        .loading-box { display:flex; align-items:center; gap:8px; padding:8px 12px; background:#F9FAFB; border:1px solid #E5E7EB; border-radius:12px; }
+        .loading-text { flex:1; font-size:12px; line-height:1.3; font-style:italic; color:rgba(26,30,35,.7); transition:opacity .3s,transform .3s;}
+        .loading-text.changing { opacity:0; transform:translateY(-5px); }
+        .loading-text.entering { opacity:0; transform:translateY(5px); }
+        .rotating-point-spinner { width:16px; height:16px; animation:spin .9s linear infinite; }
+        @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
       `;
       container.appendChild(style);
 
       const loadingBox = document.createElement('div');
       loadingBox.className = 'loading-box';
 
-      const spinnerAnimationContainer = document.createElement('div');
-      spinnerAnimationContainer.className = 'rotating-point-spinner';
+      const spinner = document.createElement('div');
+      spinner.className = 'rotating-point-spinner';
+      spinner.style.setProperty('--spinner-point-colour', '#006FB9');
+      loadingBox.appendChild(spinner);
 
-      spinnerAnimationContainer.style.setProperty('--spinner-point-colour', '#006FB9');
-
-      loadingBox.appendChild(spinnerAnimationContainer);
-
-      const textElement = document.createElement('span');
-      textElement.className = 'loading-text';
-      loadingBox.appendChild(textElement);
+      const textEl = document.createElement('span');
+      textEl.className = 'loading-text';
+      loadingBox.appendChild(textEl);
 
       container.appendChild(loadingBox);
+      element.appendChild(container);
 
-      let currentIndex = 0;
+      const interval = totalDuration / messages.length;
+      let idx = 0;
 
-      const updateText = (newText) => {
-        const currentTextElement = loadingBox.querySelector('.loading-text');
-        if (!currentTextElement) return;
-
-        currentTextElement.classList.add('changing');
-
+      const showNext = () => {
+        textEl.classList.add('changing');
         setTimeout(() => {
-          currentTextElement.textContent = newText;
-          currentTextElement.classList.remove('changing');
-          currentTextElement.classList.add('entering');
-
-          requestAnimationFrame(() => {
-            currentTextElement.classList.remove('entering');
-          });
+          textEl.textContent = messages[idx++];
+          textEl.classList.remove('changing');
+          textEl.classList.add('entering');
+          requestAnimationFrame(() => textEl.classList.remove('entering'));
         }, 300);
       };
 
-      updateText(messages[currentIndex]);
+      showNext();
+      const ticker = setInterval(() => {
+        if (idx < messages.length) showNext();
+        else clearInterval(ticker);
+      }, interval);
 
-      let intervalId = null;
-      if (messages.length > 1) {
-        intervalId = setInterval(() => {
-          if (currentIndex < messages.length - 1) {
-            currentIndex++;
-            updateText(messages[currentIndex]);
-          } else {
-            if (intervalId) {
-              clearInterval(intervalId);
-              intervalId = null;
-            }
+      // po uplynutí schovej spinner
+      const hideId = setTimeout(() => spinner.classList.add('hide'), totalDuration);
+
+      // stop při vykreslení AI odpovědi
+      const respObs = new MutationObserver(muts => {
+        muts.forEach(m => m.addedNodes.forEach(n => {
+          if (n.nodeType === 1 && n.classList.contains('vfrc-message--ai')) {
+            clearInterval(ticker);
+            clearTimeout(hideId);
+            spinner.classList.add('hide');
+            respObs.disconnect();
           }
-        }, messageInterval);
-      }
-
-      const animationTimeoutId = setTimeout(() => {
-        if (intervalId) {
-          clearInterval(intervalId);
-          intervalId = null;
-        }
-        if (spinnerAnimationContainer) {
-          spinnerAnimationContainer.classList.add('hide');
-        }
-      }, totalDuration);
-
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.removedNodes.forEach((node) => {
-            if (node === container || node.contains(container)) {
-              if (intervalId) clearInterval(intervalId);
-              clearTimeout(animationTimeoutId);
-              observer.disconnect();
-            }
-          });
-        });
+        }));
       });
+      respObs.observe(document.body, { childList:true, subtree:true });
 
-      observer.observe(element.parentElement || document.body, {
-        childList: true,
-        subtree: true
-      });
-
-      const responseObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1 && node.classList.contains('vfrc-message--ai')) {
-              if (intervalId) clearInterval(intervalId);
-              clearTimeout(animationTimeoutId);
-              spinnerAnimationContainer.classList.add('hide');
-              responseObserver.disconnect();
-              return;
-            }
-          });
-        });
-      });
-
-      responseObserver.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
-
-      if (element) {
-        element.appendChild(container);
-        void container.offsetHeight;
-      }
-    } catch (error) {
+    } catch (err) {
+      console.error('LoadingAnimationExtension error:', err);
     }
   }
 };
