@@ -1,4 +1,4 @@
-wwindow.LoadingAnimationExtension = {
+window.LoadingAnimationExtension = {
   name: 'LoadingAnimation',
   type: 'ext_loadingAnimation',
   match: ({ trace }) =>
