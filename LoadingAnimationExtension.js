@@ -9,8 +9,8 @@ window.LoadingAnimationExtension = {
     const incomingLang = (payload.lang || 'cs').toLowerCase().trim();
   
     let lang;
-    if (incomingLang.includes('cs') || incomingLang.includes('czech')) lang = 'cs';
-    else if (incomingLang.includes('en') || incomingLang.includes('english')) lang = 'en';
+    if (incomingLang.includes('cs') || incomingLang.includes('Czech')) lang = 'cs';
+    else if (incomingLang.includes('en') || incomingLang.includes('English')) lang = 'en';
     else lang = 'cs';
   
     const type = (payload.type || 'SMT').toUpperCase();
