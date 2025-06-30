@@ -6,8 +6,12 @@ window.LoadingAnimationExtension = {
   render: ({ trace, element }) => {
     const payload = trace.payload || {};
     const phase = payload.phase || 'output';
-    const lang = (payload.lang || 'cs').toLowerCase();
-    const type = (payload.type || 'SMT').toUpperCase();
+
+    const incomingLang = (payload.lang || 'cs').toLowerCase().trim();
+
+    if (incomingLang.includes('cs') || incomingLang.includes('czech')) lang = 'cs';
+    else if (incomingLang.includes('en') || incomingLang.includes('english')) lang = 'en';
+    else lang = 'cs';
 
     const messageSequences = {
       cs: {
