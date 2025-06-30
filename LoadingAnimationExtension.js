@@ -134,38 +134,32 @@ window.LoadingAnimationExtension = {
           transition: opacity 0.3s ease-out;
           width: 100%;
           display: block;
-          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          background: linear-gradient(135deg, #f6f8fa, #e0e7ff);
-          border: 1px solid #a0b0ff;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-          border-radius: 14px;
-          padding: 8px 16px;
-          color: #202040;
         }
+
         .vfrc-message.vfrc-message--extension.LoadingAnimation.hide {
           opacity: 0;
           visibility: hidden;
           pointer-events: none;
         }
+
         .loading-box {
           display: flex;
           align-items: center;
-          gap: 10px;
-          padding: 10px 14px;
+          gap: 8px;
+          padding: 8px 12px;
           margin: 0;
           width: 100%;
           box-sizing: border-box;
-          background-color: #ffffffcc;
-          border-radius: 14px;
-          border: 1px solid #a0b0ff;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+          background-color: #F9FAFB;
+          border-radius: 12px;
+          border: 1px solid #E5E7EB;
         }
+
         .loading-text {
-          color: #202040;
-          font-size: 13px;
-          line-height: 1.5;
-          font-style: italic;
-          font-weight: 600;
+          color: rgba(26, 30, 35, 0.7);
+          font-size: 12px;
+          line-height: 1.3;
+          font-family: var(--_1bof89na);
           position: relative;
           display: flex;
           flex-direction: column;
@@ -175,29 +169,34 @@ window.LoadingAnimationExtension = {
           transition: opacity 0.3s ease-out, transform 0.3s ease-out;
           flex: 1;
           min-width: 0;
-          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          font-style: italic;
         }
+
         .loading-text.changing {
           opacity: 0;
-          transform: translateY(-6px);
+          transform: translateY(-5px);
         }
+
         .loading-text.entering {
           opacity: 0;
-          transform: translateY(6px);
+          transform: translateY(5px);
         }
+
         @keyframes loading-spinner-spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
         }
+
         .rotating-point-spinner {
           position: relative;
-          width: 18px;
-          height: 18px;
-          animation: loading-spinner-spin 0.8s linear infinite;
+          width: 16px;
+          height: 16px;
+          animation: loading-spinner-spin 0.9s linear infinite;
           flex-shrink: 0;
           transition: opacity 0.3s ease-out, width 0.3s ease-out;
           opacity: 1;
         }
+
         .rotating-point-spinner::before {
           content: "";
           box-sizing: border-box;
@@ -207,27 +206,31 @@ window.LoadingAnimationExtension = {
           width: 100%;
           height: 100%;
           border-radius: 50%;
-          border: 2px solid rgba(32, 32, 64, 0.15);
+          border: 2px solid rgba(0, 0, 0, 0.12);
         }
+
         .rotating-point-spinner::after {
           content: "";
           box-sizing: border-box;
           position: absolute;
-          width: 6px;
-          height: 6px;
-          background-color: var(--spinner-point-colour, #4c51bf);
+          width: 5px;
+          height: 5px;
+          background-color: var(--spinner-point-colour, #696969);
           border-radius: 50%;
-          top: -1.7px; 
-          left: calc(50% - 3px);
+          top: -1.5px; 
+          left: calc(50% - 2.5px);
         }
+
         .spinner-point-colour {
           color: #006FB9;
         }
+
         .rotating-point-spinner.hide {
           opacity: 0;
           visibility: hidden;
           width: 0 !important;
           display: none;
+          /* margin-right: 0 !important;
         }
       `;
       container.appendChild(style);
