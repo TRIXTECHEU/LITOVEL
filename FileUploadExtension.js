@@ -30,9 +30,9 @@ window.FileUploadExtension = {
         error: '❌ Chyba při nahrávání.',
       },
       en: {
-        dragDrop: 'Drag & drop here',
+        dragDrop: 'Drag and drop here',
         maxSize: 'Maximum size',
-        skip: 'Skip',
+        skip: 'Cancel',
         uploading: '⬆ Uploading…',
         success: 'File uploaded successfully!',
         tooLarge: 'File is too large (30 MB limit)!',
