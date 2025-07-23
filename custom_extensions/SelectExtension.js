@@ -1,3 +1,5 @@
+/* TrixTech s.r.o. @2025 */
+
 window.VFSelectFixExtension = {
   name: 'SelectFix',
   type: 'response',
