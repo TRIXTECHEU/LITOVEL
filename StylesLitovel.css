@@ -18,18 +18,6 @@ div[class*="vfrc-header"] img.vfrc-avatar {
   z-index: 999999 !important;
 }
 
-.vfrc-card--description._1lbxmyd5 {
-  font-size: 12px;
-}
-
-img._1lbxmyd1 {
-  -webkit-user-drag: none;
-}
-
-.vfrc-icon._1t7e06e0._11kfxpg8 svg {
-  visibility: hidden !important;
-}
-
 .vfrc-icon._1t7e06e0._11kfxpg8::after {
   content: '';
   display: inline-block;
@@ -225,21 +213,20 @@ button.vfrc-button[label="Cancel"]::before {
     overflow: hidden;
     -webkit-user-drag: none !important;
     pointer-events: none !important;
-}
-  
-.dio4eo3 {
-  background-color: rgba(255, 255, 255, 0) !important;
-  clip-path: circle(50% at 50% 50%);
-  -webkit-user-drag: none !important;
-  pointer-events: none !important;
-  position: -75px !important;
   }
   
-
+  .dio4eo3 {
+    background-color: rgba(255, 255, 255, 0) !important;
+    clip-path: circle(50% at 50% 50%);
+    -webkit-user-drag: none !important;
+    pointer-events: none !important;
+    position: -75px !important;
+  }
+  
   .dio4eo4::before {
-      content: "Poznejte město Litovel" !important;
-      font-size: 16px !important;
-      color: #656d75 !important;
+    content: "Poznejte město Litovel" !important;
+    font-size: 16px !important;
+    color: #656d75 !important;
   }
 
   .dio4eo5::before {
@@ -248,9 +235,9 @@ button.vfrc-button[label="Cancel"]::before {
     color: #656d75 !important;
   }
 
-.vfrc-avatar {
-  background-color: transparent !important;
-}
+  .vfrc-avatar {
+    background-color: transparent !important;
+  }
 
 .g931q12 {
   box-shadow: none !important;
@@ -270,7 +257,6 @@ button.vfrc-button[label="Cancel"]::before {
   font-size: 11.5px !important;
 }
 
-
 ._15emaa41 {
   font-weight: bold;
 }
@@ -289,37 +275,49 @@ button.vfrc-button[label="Cancel"]::before {
 
 .betklma svg,
 .betklmc svg {
-width: 42px;
-height: 42px;
-fill: none;
-background-image: url('https://i.imgur.com/OCHrW2Q.png');
-background-repeat: no-repeat;
-background-position: 10px;
-background-size: 24px 24px;
+  width: 42px;
+  height: 42px;
+  fill: none;
+  background-image: url('https://i.imgur.com/OCHrW2Q.png');
+  background-repeat: no-repeat;
+  background-position: 10px;
+  background-size: 24px 24px;
 path {
   display: none !important;
-}
+  }
 }
 
 .betklma svg {
-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .betklmc svg {
-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 .vfrc-card button {
-color: #006FB9 !important;
-background-color: #E5F5FF !important;
-border: none !important;
-transition: background-color 0.3s ease, color 0.3s ease !important;
+  color: #006FB9 !important;
+  background-color: #E5F5FF !important;
+  border: none !important;
+  transition: background-color 0.3s ease, color 0.3s ease !important;
 }
 
 .vfrc-card button:hover {
-background-color: #CCEBFF !important;
-color: #005C99 !important;
-cursor: pointer !important;
+  background-color: #CCEBFF !important;
+  color: #005C99 !important;
+  cursor: pointer !important;
+}
+
+.vfrc-card--description._1lbxmyd5 {
+  font-size: 12px;
+}
+
+img._1lbxmyd1 {
+  -webkit-user-drag: none;
+}
+
+.vfrc-icon._1t7e06e0._11kfxpg8 svg {
+  visibility: hidden !important;
 }
 
 ._1cosygz0 {
@@ -327,7 +325,6 @@ cursor: pointer !important;
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
-  
 }
 
 ._1cosygz0 svg {
