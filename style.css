@@ -1,0 +1,335 @@
+/* TrixTech s.r.o. @2025 */
+
+div[class*="vfrc-header"] img.vfrc-avatar {
+  display: block !important;
+  width: 160px !important;
+  height: auto !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  border-radius: 0 !important;
+  object-fit: contain !important;
+  transform: translate(-0.75%, 0%) !important;
+  user-select: none !important;
+  pointer-events: none !important;
+}
+
+.vfrc-widget {
+  z-index: 999999 !important;
+}
+
+.vfrc-card--description._1lbxmyd5 {
+  font-size: 12px;
+}
+
+img._1lbxmyd1 {
+  -webkit-user-drag: none;
+}
+
+.vfrc-icon._1t7e06e0._11kfxpg8 svg {
+  visibility: hidden !important;
+}
+
+.vfrc-icon._1t7e06e0._11kfxpg8::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url('https://i.imgur.com/U8HIQYG.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translate(-100%, 0%) !important;
+}
+
+._11kfxpg7 {
+  transform: translate(-7%, 0%) !important;
+}
+
+.vfrc-chat, .s9t60i1 {
+  background-image: url('https://i.imgur.com/oPkAOzr.jpeg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important;
+}
+
+.vfrc-chat__dialog {
+  background-image: url('https://i.imgur.com/oPkAOzr.jpeg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important;
+}
+
+button.vfrc-button[label="Start new chat"],
+button.vfrc-button[label="Cancel"] {
+  color: transparent !important;
+  position: relative !important;
+}
+
+button.vfrc-button[label="Start new chat"] span,
+button.vfrc-button[label="Cancel"] span {
+  display: none !important;
+}
+
+button.vfrc-button[label="Start new chat"]::before {
+  content: "Spustit nový chat" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: white !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  font-family: inherit !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
+}
+
+button.vfrc-button[label="Cancel"]::before {
+  content: "Zrušit" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  color: #1a1e23 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  font-family: inherit !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
+}
+
+#vfrc-start-chat {
+  color: transparent !important;
+  position: relative !important;
+}
+
+#vfrc-start-chat span {
+  display: none !important;
+}
+
+.jyiuei2 {
+  background-color: #fff !important;
+}
+
+.s9t60i0 {
+  border: 2.5px solid #0172BE !important;
+}
+
+#vfrc-start-chat::before {
+  content: "Spustit nový chat" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: white !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  font-family: inherit !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
+}
+
+.vfrc-header .vfrc-icon._1t7e06e0 svg {
+  display: none !important;
+}
+
+.vfrc-header .vfrc-icon._1t7e06e0::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.2);
+  width: 22px;
+  height: 22px;
+  background-image: url('https://i.imgur.com/Aigfoja.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  will-change: transform, filter;
+  transition: transform 0.6s ease-in-out, filter 0.8s ease-in-out;
+  filter: brightness(1);
+}
+
+.vfrc-header button:nth-of-type(1) .vfrc-icon._1t7e06e0::before {
+  width: 22px;
+  height: 22px;
+  background-image: url('https://i.imgur.com/Aigfoja.png');
+}
+
+.vfrc-header button:nth-of-type(1) .vfrc-icon._1t7e06e0:hover::before {
+  transform: translate(-53%, -53%) scale(1.4) rotate(180deg);
+  filter: brightness(1.1);
+}
+
+.vfrc-header button:nth-of-type(2) .vfrc-icon._1t7e06e0::before {
+  width: 27px;
+  height: 27px;
+  background-image: url('https://i.imgur.com/l2R08es.png');
+}
+
+.vfrc-header button:nth-of-type(2) .vfrc-icon._1t7e06e0:hover::before {
+  transform: translate(-50%, -50%) scale(1.4);
+  filter: brightness(1.1);
+}
+
+@media (min-width: 1440px) {
+  .vfrc-header button:nth-of-type(1) .vfrc-icon._1t7e06e0::before {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media (min-width: 1200px) {
+  ._1q15b0b1 {
+    font-weight: 500 !important;
+    transition: transform 0.4s ease, box-shadow 0.4s ease !important;
+    font-size: 14px !important;
+  }
+
+  ._1q15b0b1:hover {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-2px) !important;
+  }
+}
+
+.jsli365 {
+  display: inline-block;
+  width: 130px;
+  height: 35px;
+  background-image: url("https://i.imgur.com/vZRdOvl.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: 9999px;
+  overflow: hidden;
+  -webkit-user-drag: none;
+  transition: transform 0.6s ease, filter 0.8s ease;
+}
+
+.jsli365:hover {
+  transform: scale(1.05);
+  filter: brightness(1);
+}
+
+.g3dqfd2 {
+    object-fit: cover !important;
+    object-position: center !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    clip-path: circle(50% at 50% 50%);
+    overflow: hidden;
+    -webkit-user-drag: none !important;
+    pointer-events: none !important;
+}
+  
+.dio4eo3 {
+  background-color: rgba(255, 255, 255, 0) !important;
+  clip-path: circle(50% at 50% 50%);
+  -webkit-user-drag: none !important;
+  pointer-events: none !important;
+  position: -75px !important;
+  }
+  
+
+  .dio4eo4::before {
+      content: "Poznejte město Litovel" !important;
+      font-size: 16px !important;
+      color: #656d75 !important;
+  }
+
+  .dio4eo5::before {
+    content: "prostřednictvím našeho AI asistenta" !important;
+    font-size: 14px !important;
+    color: #656d75 !important;
+  }
+
+.vfrc-avatar {
+  background-color: transparent !important;
+}
+
+.g931q12 {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.ticwq62 {
+  font-size: 0 !important;
+  position: relative;
+  background-color: transparent;
+}
+
+.ticwq62::before {
+  content: "Chat byl ukončen" !important;
+  color: #656d75;
+  position: relative;
+  font-size: 11.5px !important;
+}
+
+
+._15emaa41 {
+  font-weight: bold;
+}
+
+._1t7e06e0 {
+  transform: translateX(-0.25px) !important;
+}
+
+._11kfxpg7 {
+    font-size: 11.5px !important;
+}
+
+._11kfxpg7, .knxm730, .vfrc-user-response, ._15emaa42, .vfrc-chat, .vfrc-message p {
+  text-align: left !important;
+}
+
+.betklma svg,
+.betklmc svg {
+width: 42px;
+height: 42px;
+fill: none;
+background-image: url('https://i.imgur.com/OCHrW2Q.png');
+background-repeat: no-repeat;
+background-position: 10px;
+background-size: 24px 24px;
+path {
+  display: none !important;
+}
+}
+
+.betklma svg {
+transform: rotate(180deg);
+}
+
+.betklmc svg {
+transform: rotate(0deg);
+}
+
+.vfrc-card button {
+color: #006FB9 !important;
+background-color: #E5F5FF !important;
+border: none !important;
+transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+.vfrc-card button:hover {
+background-color: #CCEBFF !important;
+color: #005C99 !important;
+cursor: pointer !important;
+}
+
+._1cosygz0 {
+  background-image: url("https://i.imgur.com/yVIP5vK.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+}
+
+._1cosygz0 svg {
+  opacity: 0;
+}
