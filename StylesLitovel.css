@@ -1,5 +1,18 @@
 /* TrixTech s.r.o. @2025 */
 
+/* 0) Layering */
+/* Keep the chat widget above all page content */
+.vfrc-widget {
+  z-index: 999999 !important;
+}
+
+/* 1) Header */
+/* Header color */
+.jyiuei2 {
+  background-color: #FFF !important;
+}
+
+/* Header avatar */
 div[class*="vfrc-header"] img.vfrc-avatar {
   display: block !important;
   width: 160px !important;
@@ -14,42 +27,64 @@ div[class*="vfrc-header"] img.vfrc-avatar {
   pointer-events: none !important;
 }
 
-.vfrc-widget {
-  z-index: 999999 !important;
+/* Header icons: replace inline SVG*/
+.vfrc-header .vfrc-icon._1t7e06e0 svg {
+  display: none !important;
 }
 
-.vfrc-icon._1t7e06e0._11kfxpg8::after {
-  content: '';
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background-image: url('https://i.imgur.com/U8HIQYG.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  transform: translate(-100%, 0%) !important;
-}
-
-._11kfxpg7 {
-  transform: translate(-7%, 0%) !important;
-}
-
-.vfrc-chat, .s9t60i1 {
-  background-image: url('https://i.imgur.com/oPkAOzr.jpeg') !important;
-  background-size: cover !important;
-  background-position: center !important;
+.vfrc-header .vfrc-icon._1t7e06e0::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(1.2) !important;
+  width: 32px !important;
+  height: 32px !important;
+  background-image: url('https://i.imgur.com/XZDovd2.png') !important;
+  background-size: contain !important;
   background-repeat: no-repeat !important;
-  background-color: transparent !important;
-}
-
-.vfrc-chat__dialog {
-  background-image: url('https://i.imgur.com/oPkAOzr.jpeg') !important;
-  background-size: cover !important;
   background-position: center !important;
-  background-repeat: no-repeat !important;
-  background-color: transparent !important;
+  will-change: transform, filter !important;
+  transition: transform 0.6s ease-in-out, filter 0.8s ease-in-out !important;
+  filter: brightness(1) !important;
 }
 
+.vfrc-header button:nth-of-type(1) .vfrc-icon._1t7e06e0::before {
+  width: 32px !important;
+  height: 32px !important;
+  background-image: url('https://i.imgur.com/XZDovd2.png') !important;
+}
+
+.vfrc-header button:nth-of-type(1) .vfrc-icon._1t7e06e0:hover::before {
+  transform: translate(-50%, -50%) scale(1.4) rotate(-180deg) !important;
+  filter: brightness(1.1) !important;
+}
+
+.vfrc-header button:nth-of-type(2) .vfrc-icon._1t7e06e0::before {
+  width: 32px !important;
+  height: 32px !important;
+  background-image: url('https://i.imgur.com/oGmDpzC.png') !important;
+}
+
+.vfrc-header button:nth-of-type(2) .vfrc-icon._1t7e06e0:hover::before {
+  transform: translate(-50%, -50%) scale(1.42) !important;
+  filter: brightness(1.1) !important;
+}
+
+._1t7e06e0 {
+  transform: translateX(-0.25px) !important;
+}
+
+@media (min-width: 1440px) {
+  .vfrc-header button:nth-of-type(1) .vfrc-icon._1t7e06e0::before {
+    width: 32px !important;
+    height: 32px !important;
+  }
+}
+
+/* 2) Buttons (system labels) */
+/* CZ label overrides: replace built-in text */
 button.vfrc-button[label="Start new chat"],
 button.vfrc-button[label="Cancel"] {
   color: transparent !important;
@@ -89,155 +124,249 @@ button.vfrc-button[label="Cancel"]::before {
   white-space: nowrap !important;
 }
 
-#vfrc-start-chat {
-  color: transparent !important;
-  position: relative !important;
+/* 3) Chat chrome */
+/* Chat background */
+:is(.vfrc-chat, .s9t60i1, .vfrc-chat__dialog) {
+  background-image: url("https://i.imgur.com/oPkAOzr.jpeg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important;
 }
 
-#vfrc-start-chat span {
-  display: none !important;
-}
-
-.jyiuei2 {
-  background-color: #fff !important;
-}
-
+/* Chat border */
 .s9t60i0 {
   border: 2.5px solid #0172BE !important;
+  border-radius: 25px !important;
 }
 
-#vfrc-start-chat::before {
-  content: "Spustit nový chat" !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  color: white !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  font-family: inherit !important;
-  pointer-events: none !important;
+/* 4) Typography & bubbles */
+/* Text alignment in chat */
+:is(.vfrc-message,[class*="vfrc-chat-dialog"],[class*="knxm730"],[class*="_15emaa"],[class*="vfrc-user-response"],[class*="vfrc-system-response"],[class*="g3dqfd"],[class*="response-content"],[class*="streaming-response-container"]) {
+  text-align: left !important;
+}
+
+.vfrc-message, .vfrc-message * {
+  text-align: left !important;
+}
+
+.vfrc-message > * { 
+  margin-left: 0 !important; 
+}
+
+:is(div[class*="vfrc-message _11kfxpg0"], ._15emaa41, ._1lbxmyd0, .g3dqfd8) {
+  border-radius: 15px !important;
+}
+
+/* 6) System states */
+/* End-of-chat label */ 
+.ticwq62 {
+  font-size: 0 !important;
+  position: relative !important;
+  line-height: 0 !important;
+  background-color: transparent !important;
+}
+
+.ticwq62::before {
+  content: "Chat byl ukončen" !important;
+  display: inline-block !important;
+  position: relative !important;
+  font-size: 11.5px !important;
+  line-height: 1.4 !important;
+  color: #656d75 !important;
   white-space: nowrap !important;
 }
 
-.vfrc-header .vfrc-icon._1t7e06e0 svg {
+/* 7) Carousel */
+/* Carousel custom formatting */
+._1lbxmyd1 {
+  display: block !important;
+  width: calc(100% - 30px) !important;
+  margin: 15px 15px 0 !important;
+  height: 170px !important;
+  object-fit: cover !important;
+  border-radius: 15px 15px 0 0 !important;
+  box-sizing: border-box !important;
+  -webkit-user-drag: none !important;
+}
+
+/* Carousel description */
+.vfrc-card--description._1lbxmyd5 {
+  font-size: 12.5px !important;
+}
+
+/* Carousel main buttons */
+.vfrc-card button {
+  height: 40px !important;
+  padding-top: 2px !important;
+  border-radius: 10px 10px !important;
+  border: solid 1.5px #0172BE !important;
+  font-weight: 600 !important;
+  color: #0172BE !important;
+  background-color: #FFF !important;
+  transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+.vfrc-card button:hover {
+  background-color: #0172BE  !important;
+  color: #FFF !important;
+  cursor: pointer !important;
+}
+
+/* Carousel next buttons */
+.betklmg {
+  background-color: #0172BE !important;
+  border: solid 2px #FFF !important;
+}
+
+.betklm4 {
+  height: auto !important;
+  width: 50px !important;
+}
+
+:is(.betklma, .betklm4, .betklm6, .betklm7) svg {
+  background-color: #0172BE !important;
+  background-image: url("https://i.imgur.com/7MZPTtI.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 24px 24px !important;
+  translate: -3% !important;
+}
+
+:is(.betklmc, .betklm5) svg {
+  background-color: #0172BE !important;
+  background-image: url("https://i.imgur.com/7MZPTtI.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 24px 24px !important;
+  translate: 3% !important;
+}
+
+:is(.betklma, .betklmc, .betklm4, .betklm5, .betklm6, .betklm7) svg :is(path, g) {
   display: none !important;
+  fill: none !important;
+  stroke: none !important;
 }
 
-.vfrc-header .vfrc-icon._1t7e06e0::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1.2);
-  width: 22px;
-  height: 22px;
-  background-image: url('https://i.imgur.com/Aigfoja.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  will-change: transform, filter;
-  transition: transform 0.6s ease-in-out, filter 0.8s ease-in-out;
-  filter: brightness(1);
+:is(.betklma, .betklm6) svg {
+  transform: rotate(180deg) !important;
 }
 
-.vfrc-header button:nth-of-type(1) .vfrc-icon._1t7e06e0::before {
-  width: 22px;
-  height: 22px;
-  background-image: url('https://i.imgur.com/Aigfoja.png');
+:is(.betklmc, .betklm5) svg {
+  transform: rotate(0deg) !important;
 }
 
-.vfrc-header button:nth-of-type(1) .vfrc-icon._1t7e06e0:hover::before {
-  transform: translate(-53%, -53%) scale(1.4) rotate(180deg);
-  filter: brightness(1.1);
+/* 8) Generated by AI badges */
+/* Generated by AI icon */
+.vfrc-icon._1t7e06e0._11kfxpg8 svg {
+  visibility: hidden !important;
 }
 
-.vfrc-header button:nth-of-type(2) .vfrc-icon._1t7e06e0::before {
-  width: 27px;
-  height: 27px;
-  background-image: url('https://i.imgur.com/l2R08es.png');
+.vfrc-icon._1t7e06e0._11kfxpg8::after {
+  content: '' !important;
+  display: inline-block !important;
+  width: 24px !important;
+  height: 24px !important;
+  background-image: url('https://i.imgur.com/mxhUbp9.png') !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  transform: translate(-74%, -18%) !important;
 }
 
-.vfrc-header button:nth-of-type(2) .vfrc-icon._1t7e06e0:hover::before {
-  transform: translate(-50%, -50%) scale(1.4);
-  filter: brightness(1.1);
+/* Generated by AI text */
+._11kfxpg7 {
+  display: inline-block !important;
+  transform: translateX(-10%) !important;
+  font-size: 11.5px !important;
+  color: #2E2D2C  !important;
 }
 
-@media (min-width: 1440px) {
-  .vfrc-header button:nth-of-type(1) .vfrc-icon._1t7e06e0::before {
-    width: 22px;
-    height: 22px;
-  }
+._11kfxpg6 {
+  background-color: #e5e5e5 !important;
+  border-radius: 0 0 15px 15px !important;
 }
 
-@media (min-width: 1200px) {
-  ._1q15b0b1 {
-    font-weight: 500 !important;
-    transition: transform 0.4s ease, box-shadow 0.4s ease !important;
-    font-size: 14px !important;
-  }
-
-  ._1q15b0b1:hover {
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15) !important;
-    transform: translateY(-2px) !important;
-  }
+/* 9) Utilities */
+/* Widget scroll button */
+._1cosygz0 {
+  background-color: #0172BE !important;
+  background-image: url("https://i.imgur.com/A6bUy8H.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 20px 20px !important;
+  border: solid 1.5px #FFF !important;
+}
+  
+._1cosygz0 svg {
+  opacity: 0 !important;
 }
 
+/* Footer logo (Creator) */
 .jsli365 {
-  display: inline-block;
-  width: 130px;
-  height: 35px;
-  background-image: url("https://i.imgur.com/vZRdOvl.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  text-indent: 9999px;
-  overflow: hidden;
-  -webkit-user-drag: none;
-  transition: transform 0.6s ease, filter 0.8s ease;
+  display: inline-block !important;
+  width: 130px !important;
+  height: 35px !important;
+  background-image: url("https://i.imgur.com/vZRdOvl.png") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  text-indent: 9999px !important;
+  overflow: hidden !important;
+  -webkit-user-drag: none !important;
+  transition: transform 0.6s ease, filter 0.8s ease !important;
 }
 
 .jsli365:hover {
-  transform: scale(1.05);
-  filter: brightness(1);
+  transform: scale(1.05) !important;
+  filter: brightness(1) !important;
 }
 
+.jsli365:focus-visible {
+  outline: 2px solid rgba(0,0,0,0.25) !important;
+  outline-offset: 2px !important;
+  transform: scale(1.05) !important;
+  filter: brightness(1) !important;
+}
+
+
+/* 10) Subheader icon, text */
 .g3dqfd2 {
-    object-fit: cover !important;
-    object-position: center !important;
-    transform: none !important;
-    animation: none !important;
-    transition: none !important;
-    clip-path: circle(50% at 50% 50%);
-    overflow: hidden;
-    -webkit-user-drag: none !important;
-    pointer-events: none !important;
-  }
-  
-  .dio4eo3 {
-    background-color: rgba(255, 255, 255, 0) !important;
-    clip-path: circle(50% at 50% 50%);
-    -webkit-user-drag: none !important;
-    pointer-events: none !important;
-    position: -75px !important;
-  }
-  
-  .dio4eo4::before {
-    content: "Poznejte město Litovel" !important;
-    font-size: 16px !important;
-    color: #656d75 !important;
-  }
+  object-fit: cover !important;
+  object-position: center !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  clip-path: circle(50% at 50% 50%);
+  overflow: hidden;
+  -webkit-user-drag: none !important;
+  pointer-events: none !important;
+}
 
-  .dio4eo5::before {
-    content: "prostřednictvím našeho AI asistenta" !important;
-    font-size: 14px !important;
-    color: #656d75 !important;
-  }
+.dio4eo3 {
+  background-color: rgba(255, 255, 255, 0) !important;
+  clip-path: circle(50% at 50% 50%);
+  -webkit-user-drag: none !important;
+  pointer-events: none !important;
+  position: -75px !important;
+}
 
-  .vfrc-avatar {
-    background-color: transparent !important;
-  }
+
+.dio4eo4::before {
+  content: "Poznejte město Litovel" !important;
+  font-size: 16px !important;
+  color: #656d75 !important;
+}
+
+.dio4eo5::before {
+  content: "prostřednictvím našeho AI asistenta" !important;
+  font-size: 14px !important;
+  color: #656d75 !important;
+}
+
+.vfrc-avatar {
+  background-color: transparent !important;
+}
 
 .g931q12 {
   box-shadow: none !important;
@@ -250,83 +379,10 @@ button.vfrc-button[label="Cancel"]::before {
   background-color: transparent;
 }
 
-.ticwq62::before {
-  content: "Chat byl ukončen" !important;
-  color: #656d75;
-  position: relative;
-  font-size: 11.5px !important;
-}
-
 ._15emaa41 {
   font-weight: bold;
 }
 
 ._1t7e06e0 {
   transform: translateX(-0.25px) !important;
-}
-
-._11kfxpg7 {
-    font-size: 11.5px !important;
-}
-
-._11kfxpg7, .knxm730, .vfrc-user-response, ._15emaa42, .vfrc-chat, .vfrc-message p {
-  text-align: left !important;
-}
-
-.betklma svg,
-.betklmc svg {
-  width: 42px;
-  height: 42px;
-  fill: none;
-  background-image: url('https://i.imgur.com/OCHrW2Q.png');
-  background-repeat: no-repeat;
-  background-position: 10px;
-  background-size: 24px 24px;
-path {
-  display: none !important;
-  }
-}
-
-.betklma svg {
-  transform: rotate(180deg);
-}
-
-.betklmc svg {
-  transform: rotate(0deg);
-}
-
-.vfrc-card button {
-  color: #006FB9 !important;
-  background-color: #E5F5FF !important;
-  border: none !important;
-  transition: background-color 0.3s ease, color 0.3s ease !important;
-}
-
-.vfrc-card button:hover {
-  background-color: #CCEBFF !important;
-  color: #005C99 !important;
-  cursor: pointer !important;
-}
-
-.vfrc-card--description._1lbxmyd5 {
-  font-size: 12px;
-}
-
-img._1lbxmyd1 {
-  -webkit-user-drag: none;
-}
-
-.vfrc-icon._1t7e06e0._11kfxpg8 svg {
-  visibility: hidden !important;
-}
-
-._1cosygz0 {
-  background-image: url("https://i.imgur.com/yVIP5vK.png");
-  background-size: 20px 20px;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-._1cosygz0 svg {
-  opacity: 0;
 }
