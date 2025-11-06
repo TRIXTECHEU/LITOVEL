@@ -1,147 +1,91 @@
 /* TrixTech s.r.o. @2025 */
 
-/**
- * LOADING ANIMATION EXTENSION - Dokumentace
- * 
- * Jak používat z Voiceflow:
- * 
- * 1. V Voiceflow použijte "Custom Extension" block
- * 2. Nastavte název extension: "ext_loadingAnimation"
- * 3. V payloadu nastavte následující proměnné:
- * 
- *    - topic: (volitelné) Téma dotazu - použije se specifická loading zpráva
- *    - lang: (volitelné) Jazyk - "cs" nebo "en" (výchozí: "cs")
- *    - type: (volitelné) Typ - "SMT", "KB", "KB_WS", "OTHER" (výchozí: "SMT")
- *    - duration: (volitelné) Délka animace v sekundách (číslo)
- * 
- * Příklad payloadu z Voiceflow:
- * {
- *   "name": "ext_loadingAnimation",
- *   "topic": "poplatky",
- *   "lang": "cs"
- * }
- * 
- * Dostupné témata (topic):
- * 
- * ČESKY / ANGLICKY:
- * - "poplatky" / "fees" - Poplatky
- * - "uredni-deska" / "office-board" - Úřední deska
- * - "uredni-hodiny" / "office-hours" - Úřední hodiny
- * - "kontakty" / "contacts" - Kontakty
- * - "formulare" / "forms" - Formuláře
- * - "zadosti" / "requests" - Žádosti
- * - "stavebni-povoleni" / "building-permit" - Stavební povolení
- * - "zivnostensky-rejstrik" / "business-registry" - Živnostenský rejstřík
- * - "matrika" / "registry-office" - Matrika
- * - "doprava" / "transport" - Doprava
- * - "kultura" / "culture" - Kultura
- * - "sport" - Sport
- * - "zdravotnictvi" / "healthcare" - Zdravotnictví
- * - "skolstvi" / "education" - Školství
- * - "socialni-sluzby" / "social-services" - Sociální služby
- * - "odpad" / "waste" - Odpad
- * - "voda" / "water" - Voda
- * - "energie" / "energy" - Energie
- * - "obecne" / "general" - Obecné dotazy
- * 
- * Pokud topic není zadán, použije se standardní chování podle type.
- */
-
 window.LoadingAnimationExtension = {
   name: 'LoadingAnimation',
   type: 'response',
   match: ({ trace }) =>
-    trace.type === 'ext_loadingAnimation' || trace.payload?.name === 'ext_loadingAnimation',
+    trace.type === 'ext_loadingAnimation' || 
+    trace.payload?.name === 'ext_loadingAnimation' ||
+    trace.payload?.type === 'ext_loadingAnimation',
   render: ({ trace, element }) => {
     const payload = trace.payload || {};
-    const incomingLang = (payload.lang || 'cs').toLowerCase().trim();
+    // Zpracování lang - může přijít jako string nebo objekt
+    let incomingLang = payload.lang;
+    if (typeof incomingLang === 'object' && incomingLang !== null) {
+      incomingLang = incomingLang.lang || incomingLang.language || 'cs';
+    }
+    incomingLang = (incomingLang || 'cs').toLowerCase().trim();
   
     let lang;
     if (incomingLang.includes('cs') || incomingLang.includes('Czech')) lang = 'cs';
     else if (incomingLang.includes('en') || incomingLang.includes('English')) lang = 'en';
     else lang = 'cs';
   
-    const type = (payload.type || 'SMT').toUpperCase();
-    const topic = (payload.topic || '').toLowerCase().trim();
+    // Zpracování type - ignoruj pokud je to název extension
+    let typeValue = payload.type;
+    if (typeValue === 'ext_loadingAnimation') {
+      typeValue = 'SMT'; // výchozí hodnota
+    } else {
+      typeValue = (typeValue || 'SMT').toUpperCase();
+    }
+    const type = typeValue;
+    
+    // Zpracování topic - odstran placeholder hodnoty
+    let topicValue = payload.topic || '';
+    if (typeof topicValue === 'string') {
+      topicValue = topicValue.replace(/[{}]/g, '').toLowerCase().trim();
+      // Pokud je to placeholder, ignoruj
+      if (topicValue === 'topic' || topicValue === '') {
+        topicValue = '';
+      }
+    } else {
+      topicValue = '';
+    }
+    const topic = topicValue;
 
     // Mapování témat na specifické zprávy
+    // cs: pouze české klíče, en: pouze anglické klíče
     const topicMessages = {
       cs: {
         'obecne': ['Zpracovávám váš dotaz.', 'Hledám relevantní informace.', 'Připravuji odpověď.'],
-        'general': ['Zpracovávám váš dotaz.', 'Hledám relevantní informace.', 'Připravuji odpověď.'],
         'poplatky': ['Vyhledávám informace o poplatcích.', 'Kontroluji aktuální sazby.', 'Připravuji přehled poplatků.'],
-        'fees': ['Vyhledávám informace o poplatcích.', 'Kontroluji aktuální sazby.', 'Připravuji přehled poplatků.'],
         'uredni-deska': ['Procházím úřední desku.', 'Hledám aktuální dokumenty.', 'Získávám informace z úřední desky.'],
-        'office-board': ['Procházím úřední desku.', 'Hledám aktuální dokumenty.', 'Získávám informace z úřední desky.'],
         'uredni-hodiny': ['Kontroluji úřední hodiny.', 'Ověřuji dostupnost úřadu.', 'Zjišťuji otevírací dobu.'],
-        'office-hours': ['Kontroluji úřední hodiny.', 'Ověřuji dostupnost úřadu.', 'Zjišťuji otevírací dobu.'],
         'kontakty': ['Hledám kontaktní informace.', 'Zjišťuji telefonní čísla a e-maily.', 'Připravuji seznam kontaktů.'],
-        'contacts': ['Hledám kontaktní informace.', 'Zjišťuji telefonní čísla a e-maily.', 'Připravuji seznam kontaktů.'],
         'formulare': ['Vyhledávám formuláře.', 'Kontroluji dostupné dokumenty.', 'Připravuji seznam formulářů.'],
-        'forms': ['Vyhledávám formuláře.', 'Kontroluji dostupné dokumenty.', 'Připravuji seznam formulářů.'],
         'zadosti': ['Procházím typy žádostí.', 'Zjišťuji postup podání.', 'Připravuji informace o žádostech.'],
-        'requests': ['Procházím typy žádostí.', 'Zjišťuji postup podání.', 'Připravuji informace o žádostech.'],
         'stavebni-povoleni': ['Vyhledávám informace o stavebním povolení.', 'Kontroluji požadavky a dokumenty.', 'Zjišťuji postup žádosti.'],
-        'building-permit': ['Vyhledávám informace o stavebním povolení.', 'Kontroluji požadavky a dokumenty.', 'Zjišťuji postup žádosti.'],
         'zivnostensky-rejstrik': ['Procházím živnostenský rejstřík.', 'Kontroluji podmínky podnikání.', 'Zjišťuji potřebné informace.'],
-        'business-registry': ['Procházím živnostenský rejstřík.', 'Kontroluji podmínky podnikání.', 'Zjišťuji potřebné informace.'],
         'matrika': ['Vyhledávám informace o matričních úkonech.', 'Kontroluji dostupné služby.', 'Zjišťuji potřebné dokumenty.'],
-        'registry-office': ['Vyhledávám informace o matričních úkonech.', 'Kontroluji dostupné služby.', 'Zjišťuji potřebné dokumenty.'],
         'doprava': ['Procházím dopravní informace.', 'Kontroluji dopravní předpisy.', 'Zjišťuji parkovací možnosti.'],
-        'transport': ['Procházím dopravní informace.', 'Kontroluji dopravní předpisy.', 'Zjišťuji parkovací možnosti.'],
         'kultura': ['Vyhledávám kulturní akce.', 'Kontroluji programy a události.', 'Připravuji přehled kulturních aktivit.'],
-        'culture': ['Vyhledávám kulturní akce.', 'Kontroluji programy a události.', 'Připravuji přehled kulturních aktivit.'],
         'sport': ['Procházím sportovní možnosti.', 'Kontroluji sportovní zařízení.', 'Zjišťuji sportovní aktivity.'],
         'zdravotnictvi': ['Vyhledávám zdravotní služby.', 'Kontroluji dostupnost lékařů.', 'Zjišťuji zdravotní informace.'],
-        'healthcare': ['Vyhledávám zdravotní služby.', 'Kontroluji dostupnost lékařů.', 'Zjišťuji zdravotní informace.'],
         'skolstvi': ['Procházím školské informace.', 'Kontroluji školy a školky.', 'Zjišťuji vzdělávací možnosti.'],
-        'education': ['Procházím školské informace.', 'Kontroluji školy a školky.', 'Zjišťuji vzdělávací možnosti.'],
         'socialni-sluzby': ['Vyhledávám sociální služby.', 'Kontroluji dostupné programy.', 'Zjišťuji podporu a pomoc.'],
-        'social-services': ['Vyhledávám sociální služby.', 'Kontroluji dostupné programy.', 'Zjišťuji podporu a pomoc.'],
         'odpad': ['Procházím informace o odpadu.', 'Kontroluji svozové dny.', 'Zjišťuji třídění odpadu.'],
-        'waste': ['Procházím informace o odpadu.', 'Kontroluji svozové dny.', 'Zjišťuji třídění odpadu.'],
         'voda': ['Vyhledávám informace o vodě.', 'Kontroluji vodovod a kanalizaci.', 'Zjišťuji vodní služby.'],
-        'water': ['Vyhledávám informace o vodě.', 'Kontroluji vodovod a kanalizaci.', 'Zjišťuji vodní služby.'],
-        'energie': ['Procházím energetické služby.', 'Kontroluji dodavatele energií.', 'Zjišťuji energetické informace.'],
-        'energy': ['Procházím energetické služby.', 'Kontroluji dodavatele energií.', 'Zjišťuji energetické informace.']
+        'energie': ['Procházím energetické služby.', 'Kontroluji dodavatele energií.', 'Zjišťuji energetické informace.']
       },
       en: {
-        'obecne': ['Processing your query.', 'Looking for relevant information.', 'Preparing response.'],
         'general': ['Processing your query.', 'Looking for relevant information.', 'Preparing response.'],
-        'poplatky': ['Searching for fee information.', 'Checking current rates.', 'Preparing fee overview.'],
         'fees': ['Searching for fee information.', 'Checking current rates.', 'Preparing fee overview.'],
-        'uredni-deska': ['Browsing the office board.', 'Looking for current documents.', 'Retrieving information from the office board.'],
         'office-board': ['Browsing the office board.', 'Looking for current documents.', 'Retrieving information from the office board.'],
-        'uredni-hodiny': ['Checking office hours.', 'Verifying office availability.', 'Finding opening hours.'],
         'office-hours': ['Checking office hours.', 'Verifying office availability.', 'Finding opening hours.'],
-        'kontakty': ['Looking for contact information.', 'Finding phone numbers and emails.', 'Preparing contact list.'],
         'contacts': ['Looking for contact information.', 'Finding phone numbers and emails.', 'Preparing contact list.'],
-        'formulare': ['Searching for forms.', 'Checking available documents.', 'Preparing form list.'],
         'forms': ['Searching for forms.', 'Checking available documents.', 'Preparing form list.'],
-        'zadosti': ['Browsing request types.', 'Finding submission procedures.', 'Preparing request information.'],
         'requests': ['Browsing request types.', 'Finding submission procedures.', 'Preparing request information.'],
-        'stavebni-povoleni': ['Searching for building permit information.', 'Checking requirements and documents.', 'Finding application procedure.'],
         'building-permit': ['Searching for building permit information.', 'Checking requirements and documents.', 'Finding application procedure.'],
-        'zivnostensky-rejstrik': ['Browsing business registry.', 'Checking business conditions.', 'Finding required information.'],
         'business-registry': ['Browsing business registry.', 'Checking business conditions.', 'Finding required information.'],
-        'matrika': ['Searching for registry office information.', 'Checking available services.', 'Finding required documents.'],
         'registry-office': ['Searching for registry office information.', 'Checking available services.', 'Finding required documents.'],
-        'doprava': ['Browsing transport information.', 'Checking traffic regulations.', 'Finding parking options.'],
         'transport': ['Browsing transport information.', 'Checking traffic regulations.', 'Finding parking options.'],
-        'kultura': ['Searching for cultural events.', 'Checking programs and events.', 'Preparing cultural activities overview.'],
         'culture': ['Searching for cultural events.', 'Checking programs and events.', 'Preparing cultural activities overview.'],
         'sport': ['Browsing sports options.', 'Checking sports facilities.', 'Finding sports activities.'],
-        'zdravotnictvi': ['Searching for healthcare services.', 'Checking doctor availability.', 'Finding health information.'],
         'healthcare': ['Searching for healthcare services.', 'Checking doctor availability.', 'Finding health information.'],
-        'skolstvi': ['Browsing education information.', 'Checking schools and kindergartens.', 'Finding educational options.'],
         'education': ['Browsing education information.', 'Checking schools and kindergartens.', 'Finding educational options.'],
-        'socialni-sluzby': ['Searching for social services.', 'Checking available programs.', 'Finding support and help.'],
         'social-services': ['Searching for social services.', 'Checking available programs.', 'Finding support and help.'],
-        'odpad': ['Browsing waste information.', 'Checking collection days.', 'Finding waste sorting information.'],
         'waste': ['Browsing waste information.', 'Checking collection days.', 'Finding waste sorting information.'],
-        'voda': ['Searching for water information.', 'Checking water and sewer services.', 'Finding water services.'],
         'water': ['Searching for water information.', 'Checking water and sewer services.', 'Finding water services.'],
-        'energie': ['Browsing energy services.', 'Checking energy suppliers.', 'Finding energy information.'],
         'energy': ['Browsing energy services.', 'Checking energy suppliers.', 'Finding energy information.']
       }
     };
