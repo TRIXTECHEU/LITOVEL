@@ -153,6 +153,7 @@ div[class*="vfrc-header"] img.vfrc-avatar {
 :is(button.vfrc-button[label="Start new chat"], #vfrc-start-chat) {
   background: linear-gradient(120deg, #007ACA 0%, #006fb9 50%, #015289 100%) !important;
   transition: background .2s ease !important;
+  border: 2px solid #deecf5 !important;
 }
 
 :is(button.vfrc-button[label="Start new chat"], #vfrc-start-chat)::before {
@@ -180,6 +181,7 @@ div[class*="vfrc-header"] img.vfrc-avatar {
 
 :is(button.vfrc-button[label="Start new chat"], #vfrc-start-chat):hover {
   background: linear-gradient(120deg, #015289 0%, #006fb9 50%, #007ACA 100%) !important;
+  border: 2px solid #deecf5 !important;
 }
 :is(button.vfrc-button[label="Start new chat"], #vfrc-start-chat):hover::after {
   transform: translateX(-260%) skewX(-24deg);
@@ -327,10 +329,10 @@ button.vfrc-button[label="Cancel"]:hover {
     letter-spacing: .05em !important;
     color: #FFF !important;
     height: 40px !important;
-    border: none !important;
+    border: 2px solid #deecf5 !important;
     box-shadow: none !important;
     border-radius: 15px !important;
-    padding: 24px 14px !important;
+    padding: 22px 24px !important;
     background: linear-gradient(120deg, #007ACA 0%, #006fb9 50%, #015289 100%) !important;
     position: relative !important;
     display: inline-flex !important;
@@ -362,8 +364,9 @@ button.vfrc-button[label="Cancel"]:hover {
   
 /* 8.3) Main buttons hover effect */
   ._1q15b0b1:hover{
-  background: linear-gradient(120deg, #015289 0%, #006fb9 50%, #007ACA 100%) !important;
+    background: linear-gradient(120deg, #015289 0%, #006fb9 50%, #007ACA 100%) !important;
     color: #FFF !important;
+    border: 2px solid #deecf5 !important;
   }
 
   ._1q15b0b1:hover::after{
@@ -436,7 +439,7 @@ button.vfrc-button[label="Cancel"]:hover {
 /* 10.4) Carousel main buttons */
 .vfrc-card button{
   height: 40px !important;
-  border: none !important;
+  border: 2px solid #deecf5 !important;
   letter-spacing: .05em !important;
   border-radius: 15px !important;
   padding-top: 2px !important;
@@ -468,6 +471,7 @@ button.vfrc-button[label="Cancel"]:hover {
 
 .vfrc-card button:hover{
   background: linear-gradient(120deg, #015289 0%, #006fb9 50%, #007ACA 100%) !important;
+  border: 2px solid #deecf5 !important;
 }
 .vfrc-card button:hover::after{
   transform: translateX(-260%) skewX(-24deg);
@@ -928,6 +932,7 @@ div._6r9xee3.o231sh1 > * {
   background: linear-gradient(120deg, #007ACA 0%, #006fb9 50%, #015289 100%) !important;
   color: #fff !important;
   overflow: hidden !important;
+  border: 2px solid #deecf5 !important;
 }
 
 .vfrc-privacy__primary-button::after {
@@ -951,6 +956,7 @@ div._6r9xee3.o231sh1 > * {
 
 .vfrc-privacy__primary-button:hover {
   background: linear-gradient(120deg, #015289 0%, #006fb9 50%, #007ACA 100%) !important;
+  border: 2px solid #deecf5 !important;
 }
 
 .vfrc-privacy__primary-button:hover::after {
