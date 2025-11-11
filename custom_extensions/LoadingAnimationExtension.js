@@ -151,9 +151,10 @@ window.LoadingAnimationExtension = {
         if (topic) {
           totalDuration = 6000;
         } else {
-          totalDuration = (type === 'KB_WS') ? 23000
-                         : (type === 'KB')   ? 12000
-                         : 4000;
+        totalDuration = (type === 'KB_WS') ? 23000
+                       : (type === 'KB')   ? 12000
+                       : (type === 'CUSTOM') ? 15000
+                       : 4000;
         }
       }
 
