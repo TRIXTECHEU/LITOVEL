@@ -332,7 +332,7 @@ button.vfrc-button[label="Cancel"]:hover {
     border: 2px solid #deecf5 !important;
     box-shadow: none !important;
     border-radius: 15px !important;
-    padding: 22px 24px !important;
+    padding: 22px 12px !important;
     background: linear-gradient(120deg, #007ACA 0%, #006fb9 50%, #015289 100%) !important;
     position: relative !important;
     display: inline-flex !important;
