@@ -1012,25 +1012,16 @@ div.vfrc-chat__container._1wkq7nf5._1wkq7nf8._1wkq7nf9 {
 @media (max-width: 768px) {
   .s9t60i0 {
     position: fixed !important;
-    top: 10px !important;
-    left: 10px !important;
-    right: 10px !important;
-    bottom: 10px !important;
-    width: calc(100vw - 20px) !important;
-    height: calc(100vh - 20px) !important;
+    width: calc(100vw) !important;
+    height: calc(100vh) !important;
   }
 }
-
 
 /* 17.2) Privacy banner responsive */
 @media (max-width: 768px) {
   ._19yxzl21 {
     position: fixed !important;
-    top: 10px !important;
-    left: 10px !important;
-    right: 10px !important;
-    bottom: 10px !important;
-    width: calc(100vw - 60px) !important;
-    height: calc(100vh - 55px) !important;
+    width: calc(103.5vw - 60px) !important;
+    height: calc(102vh - 50px) !important;
   }
 }
