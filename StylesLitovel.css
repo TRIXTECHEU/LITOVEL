@@ -1058,19 +1058,13 @@ div.vfrc-chat__container._1wkq7nf5._1wkq7nf8._1wkq7nf9 {
   width: 450px !important;
 }
 
-@media (max-width: 768px) {
-  .s9t60i0 {
-    position: fixed !important;
-    width: calc(100vw) !important;
-    height: calc(100vh) !important;
+/* 17.2) Responsive chat window */
+@media (max-width: 768px){
+  div.vfrc-chat__container._1wkq7nf5._1wkq7nf8._1wkq7nf9 {
+    height: 100% !important;
   }
-}
-
-/* 17.2) Privacy banner responsive */
-@media (max-width: 768px) {
-  ._19yxzl21 {
-    position: fixed !important;
-    width: calc(103.5vw - 60px) !important;
-    height: calc(102vh - 50px) !important;
+  
+  ._1wkq7nf5 {
+    width: 100% !important;
   }
 }
