@@ -1052,9 +1052,6 @@ div.vfrc-chat__container._1wkq7nf5._1wkq7nf8._1wkq7nf9 {
   right: 15px !important;
   bottom: 10px !important;
   height: calc(112% - 104px) !important;
-}
-
-._1wkq7nf5 {
   width: 450px !important;
 }
 
@@ -1062,9 +1059,6 @@ div.vfrc-chat__container._1wkq7nf5._1wkq7nf8._1wkq7nf9 {
 @media (max-width: 768px){
   div.vfrc-chat__container._1wkq7nf5._1wkq7nf8._1wkq7nf9 {
     height: 100% !important;
-  }
-  
-  ._1wkq7nf5 {
     width: 100% !important;
   }
 }
