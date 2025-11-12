@@ -606,67 +606,110 @@ button.vfrc-button[label="Cancel"]:hover {
   color: #1a1e23 !important;
 }
 
-/* 13.3) Send button transcription */
+/* 13.3) Send button basic styles */
 button#vfrc-send-message,
 button.vfrc-chat-input__send,
-button[class*="vfrc-chat-input__send"],
-.vfrc-footer button#vfrc-send-message,
-.vfrc-footer button.vfrc-chat-input__send,
-.vfrc-footer button[class*="vfrc-chat-input__send"] {
-  position:relative !important;
-  width:40px !important; 
-  height:40px !important;
-  color:#9aa3af !important;
-  background:#eef2f7 !important;
+button[class*="vfrc-chat-input__send"] {
+  position: relative !important;
+  width: 40px !important;
+  height: 40px !important;
   border-radius: 9999px !important;
 }
 
 button#vfrc-send-message svg,
 button.vfrc-chat-input__send svg,
-button[class*="vfrc-chat-input__send"] svg,
-.vfrc-footer button#vfrc-send-message svg,
-.vfrc-footer button.vfrc-chat-input__send svg,
-.vfrc-footer button[class*="vfrc-chat-input__send"] svg { 
-  display:none !important; 
+button[class*="vfrc-chat-input__send"] svg {
+  display: none !important;
 }
 
 button#vfrc-send-message::before,
 button.vfrc-chat-input__send::before,
-button[class*="vfrc-chat-input__send"]::before,
-.vfrc-footer button#vfrc-send-message::before,
-.vfrc-footer button.vfrc-chat-input__send::before,
-.vfrc-footer button[class*="vfrc-chat-input__send"]::before{
-  content:"" !important; 
-  position:absolute !important; 
-  inset:0 !important; 
-  margin:auto !important; 
-  width:28px !important; 
-  height:28px !important;
+button[class*="vfrc-chat-input__send"]::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  margin: auto !important;
+  width: 28px !important;
+  height: 28px !important;
   background-color: currentColor !important;
   mask: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-send.svg") no-repeat center / contain !important;
-  pointer-events:none !important;
+  pointer-events: none !important;
 }
 
-.vfrc-footer:has(textarea:not(:placeholder-shown)) button#vfrc-send-message,
-.vfrc-footer:has(input[type="text"]:not(:placeholder-shown)) button#vfrc-send-message,
-.vfrc-footer:has(textarea:not(:placeholder-shown)) button.vfrc-chat-input__send,
-.vfrc-footer:has(input[type="text"]:not(:placeholder-shown)) button.vfrc-chat-input__send,
-.vfrc-footer:has(textarea:not(:placeholder-shown)) button[class*="vfrc-chat-input__send"],
-.vfrc-footer:has(input[type="text"]:not(:placeholder-shown)) button[class*="vfrc-chat-input__send"]{
-  color:#ffffff !important;
-  background-color: #0172BE !important;
+/* 13.4) Send button - disabled state */
+button#vfrc-send-message.ngo489a,
+button.vfrc-chat-input__send.ngo489a,
+button[class*="vfrc-chat-input__send"].ngo489a,
+button[class*="ngo489a"],
+.vfrc-footer button#vfrc-send-message.ngo489a,
+.vfrc-footer button.vfrc-chat-input__send.ngo489a,
+.vfrc-footer button[class*="vfrc-chat-input__send"].ngo489a,
+.vfrc-footer button[class*="ngo489a"] {
+  color: #656d75 !important;
+  background-color: #f1f2f2 !important;
+  cursor: not-allowed !important;
 }
 
-button#vfrc-send-message:hover,
-button.vfrc-chat-input__send:hover,
-button[class*="vfrc-chat-input__send"]:hover,
-.vfrc-footer button#vfrc-send-message:hover,
-.vfrc-footer button.vfrc-chat-input__send:hover,
-.vfrc-footer button[class*="vfrc-chat-input__send"]:hover {
-  transform: none !important;
-  scale: 1 !important;
-  width: 40px !important;
-  height: 40px !important;
+/* 13.5) Send button - enabled state */
+.vfrc-footer:has(textarea:not(:placeholder-shown)) button#vfrc-send-message.ngo489h:enabled,
+.vfrc-footer:has(textarea:not(:placeholder-shown)) button.vfrc-chat-input__send.ngo489h:enabled,
+.vfrc-footer:has(textarea:not(:placeholder-shown)) button[class*="vfrc-chat-input__send"].ngo489h:enabled,
+.vfrc-footer:has(input[type="text"]:not(:placeholder-shown)) button#vfrc-send-message.ngo489h:enabled,
+.vfrc-footer:has(input[type="text"]:not(:placeholder-shown)) button.vfrc-chat-input__send.ngo489h:enabled,
+.vfrc-footer:has(input[type="text"]:not(:placeholder-shown)) button[class*="vfrc-chat-input__send"].ngo489h:enabled,
+button#vfrc-send-message.ngo489h:enabled:not(:disabled),
+button.vfrc-chat-input__send.ngo489h:enabled:not(:disabled),
+button[class*="vfrc-chat-input__send"].ngo489h:enabled:not(:disabled) {
+  color: #ffffff !important;
+  background-color: #006fb9 !important;
+  box-shadow: 0 -1px #00000029 inset !important;
+}
+
+button#vfrc-send-message.ngo489h:hover:enabled,
+button.vfrc-chat-input__send.ngo489h:hover:enabled,
+button[class*="vfrc-chat-input__send"].ngo489h:hover:enabled,
+.vfrc-footer button#vfrc-send-message.ngo489h:hover:enabled,
+.vfrc-footer button.vfrc-chat-input__send.ngo489h:hover:enabled,
+.vfrc-footer button[class*="vfrc-chat-input__send"].ngo489h:hover:enabled {
+  background-color: #006fb9 !important;
+}
+
+button#vfrc-send-message.ngo489h:active:enabled,
+button.vfrc-chat-input__send.ngo489h:active:enabled,
+button[class*="vfrc-chat-input__send"].ngo489h:active:enabled,
+.vfrc-footer button#vfrc-send-message.ngo489h:active:enabled,
+.vfrc-footer button.vfrc-chat-input__send.ngo489h:active:enabled,
+.vfrc-footer button[class*="vfrc-chat-input__send"].ngo489h:active:enabled {
+  background-color: #006fb9 !important;
+}
+
+/* 13.6) Send button - hover state */
+button#vfrc-send-message.ngo489n:hover,
+button.vfrc-chat-input__send.ngo489n:hover,
+button[class*="vfrc-chat-input__send"].ngo489n:hover,
+.vfrc-footer button#vfrc-send-message.ngo489n:hover,
+.vfrc-footer button.vfrc-chat-input__send.ngo489n:hover,
+.vfrc-footer button[class*="vfrc-chat-input__send"].ngo489n:hover {
+  transform: scale(1.05) !important;
+}
+
+button#vfrc-send-message.ngo489n:active,
+button.vfrc-chat-input__send.ngo489n:active,
+button[class*="vfrc-chat-input__send"].ngo489n:active,
+.vfrc-footer button#vfrc-send-message.ngo489n:active,
+.vfrc-footer button.vfrc-chat-input__send.ngo489n:active,
+.vfrc-footer button[class*="vfrc-chat-input__send"].ngo489n:active {
+  transform: scale(1) !important;
+}
+
+input:is([type="button"], [type="submit"], [type="reset"]):disabled,
+input[type="file"]:disabled::file-selector-button,
+button:disabled,
+select:disabled,
+optgroup:disabled,
+option:disabled,
+select[disabled] > option {
+  color: graytext !important;
 }
 
 
