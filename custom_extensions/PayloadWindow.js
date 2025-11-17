@@ -249,20 +249,20 @@
   box-sizing: border-box !important;
 }
 
-/* CTA tlačítko – stejný styl jako "Spustit nový chat" z style.css */
+/* CTA tlačítko – bílé pozadí s tmavým textem */
 #vfCta #vfOpenChat.vf-btn{
   position: relative !important;
   overflow: hidden !important;
   padding: 10px 18px !important;
-  border: 0 !important;
+  border: 2px solid #007ACA !important;
   border-radius: 15px !important;
-  color: #fff !important;
+  color: #0b1720 !important;
   font-weight: 700 !important;
   letter-spacing: .05em !important;
   font-size: 15px !important;
   cursor: pointer !important;
-  background: linear-gradient(120deg, #007ACA 0%, #006fb9 50%, #015289 100%) !important;
-  transition: background .2s ease, color .2s ease !important;
+  background: #ffffff !important;
+  transition: background .2s ease, color .2s ease, border-color .2s ease !important;
   margin: 0 !important;
   width: 100% !important;
   box-sizing: border-box !important;
@@ -283,7 +283,7 @@
   left: -35% !important;
   width: 70% !important;
   height: 100% !important;
-  background: linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.32) 50%, rgba(255,255,255,0) 100%) !important;
+  background: linear-gradient(115deg, rgba(0,123,202,0) 0%, rgba(0,123,202,.15) 50%, rgba(0,123,202,0) 100%) !important;
   transform: translateX(260%) skewX(-24deg) !important;
   opacity: 0 !important;
   transition: transform .95s cubic-bezier(.22,.61,.36,1), opacity 1ms linear .96s !important;
@@ -292,7 +292,9 @@
 }
 
 #vfCta #vfOpenChat.vf-btn:hover{
-  background: linear-gradient(120deg, #015289 0%, #006fb9 50%, #007ACA 100%) !important;
+  background: #f7f7f7 !important;
+  border-color: #006fb9 !important;
+  color: #0b1720 !important;
 }
 
 #vfCta #vfOpenChat.vf-btn:hover::after{
@@ -342,8 +344,8 @@
 /* Responzivní design - MOBILY */
 @media (max-width:768px){
   #vfCta.vf-cta{ 
-    right: auto !important;
-    left: 20px !important;
+    right: 20px !important;
+    left: auto !important;
     bottom: calc(80px + 20px) !important;
     transform: translateY(8px) scale(.98) !important;
   }
@@ -375,7 +377,8 @@
 
 @media (max-width:480px){
   #vfCta.vf-cta{ 
-    left: 12px !important;
+    right: 12px !important;
+    left: auto !important;
     bottom: calc(70px + 16px) !important;
   }
   #vfCta .vf-card{ 
