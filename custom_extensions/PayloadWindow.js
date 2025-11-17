@@ -249,20 +249,20 @@
   box-sizing: border-box !important;
 }
 
-/* CTA tlačítko – bílé pozadí s tmavým textem */
+/* CTA tlačítko – stejný styl jako "Spustit nový chat" z style.css */
 #vfCta #vfOpenChat.vf-btn{
   position: relative !important;
   overflow: hidden !important;
   padding: 10px 18px !important;
-  border: 2px solid #007ACA !important;
+  border: 0 !important;
   border-radius: 15px !important;
-  color: #0b1720 !important;
+  color: #fff !important;
   font-weight: 700 !important;
   letter-spacing: .05em !important;
   font-size: 15px !important;
   cursor: pointer !important;
-  background: #ffffff !important;
-  transition: background .2s ease, color .2s ease, border-color .2s ease !important;
+  background: linear-gradient(120deg, #007ACA 0%, #006fb9 50%, #015289 100%) !important;
+  transition: background .2s ease, color .2s ease !important;
   margin: 0 !important;
   width: 100% !important;
   box-sizing: border-box !important;
@@ -283,7 +283,7 @@
   left: -35% !important;
   width: 70% !important;
   height: 100% !important;
-  background: linear-gradient(115deg, rgba(0,123,202,0) 0%, rgba(0,123,202,.15) 50%, rgba(0,123,202,0) 100%) !important;
+  background: linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.32) 50%, rgba(255,255,255,0) 100%) !important;
   transform: translateX(260%) skewX(-24deg) !important;
   opacity: 0 !important;
   transition: transform .95s cubic-bezier(.22,.61,.36,1), opacity 1ms linear .96s !important;
@@ -292,9 +292,7 @@
 }
 
 #vfCta #vfOpenChat.vf-btn:hover{
-  background: #f7f7f7 !important;
-  border-color: #006fb9 !important;
-  color: #0b1720 !important;
+  background: linear-gradient(120deg, #015289 0%, #006fb9 50%, #007ACA 100%) !important;
 }
 
 #vfCta #vfOpenChat.vf-btn:hover::after{
