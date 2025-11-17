@@ -96,7 +96,6 @@
   var CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-/* CSS Reset a izolace pro payload window - zabránění přepsání webovými styly */
 #vfCta,
 #vfCta *,
 #vfCta *::before,
@@ -112,6 +111,7 @@
   list-style: none !important;
   border-collapse: collapse !important;
   vertical-align: baseline !important;
+  color: #FFF !important;
 }
 
 :root{
