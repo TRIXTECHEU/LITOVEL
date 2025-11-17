@@ -96,6 +96,24 @@
   var CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
+/* CSS Reset a izolace pro payload window - zabránění přepsání webovými styly */
+#vfCta,
+#vfCta *,
+#vfCta *::before,
+#vfCta *::after {
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  line-height: normal !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+  list-style: none !important;
+  border-collapse: collapse !important;
+  vertical-align: baseline !important;
+}
+
 :root{
   --vf-brand:#006fb9;         /* tmavší městská modrá */
   --vf-accent:#007ACA;        /* světlejší městská modrá */
@@ -107,130 +125,281 @@
   --vf-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* CTA kontejner */
-.vf-cta{
-  position:fixed; right:18px; bottom:100px; z-index:900000;
-  opacity:0; transform:translateY(8px) scale(.98); visibility:hidden; pointer-events:none;
-  transition:opacity .2s ease, transform .2s ease, visibility 0s linear .2s;
-  font-family: var(--vf-font);
+/* CTA kontejner - plná izolace */
+#vfCta.vf-cta{
+  position: fixed !important;
+  right: 18px !important;
+  bottom: 100px !important;
+  z-index: 999999 !important;
+  opacity: 0 !important;
+  transform: translateY(8px) scale(.98) !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s !important;
+  font-family: var(--vf-font) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  float: none !important;
+  clear: both !important;
+  display: block !important;
 }
-.vf-cta.is-in{ opacity:1; transform:translateY(0) scale(1); visibility:visible; pointer-events:auto; }
-.vf-cta.is-out{ opacity:0; transform:translateY(8px) scale(.98); visibility:hidden; pointer-events:none; transition:opacity .16s ease, transform .16s ease, visibility 0s linear .16s; }
 
-/* Karta */
-.vf-card{
-  position:relative; width:var(--vf-card-w);
-  background:var(--vf-bg); color:var(--vf-text);
-  border:0; border-radius:16px; padding:14px;
-  display:flex; flex-direction:column; gap:10px;
-  box-shadow:0 16px 32px -16px rgba(0,0,0,.28);
-  font-family: var(--vf-font);
+#vfCta.vf-cta.is-in{ 
+  opacity: 1 !important; 
+  transform: translateY(0) scale(1) !important; 
+  visibility: visible !important; 
+  pointer-events: auto !important; 
+}
+
+#vfCta.vf-cta.is-out{ 
+  opacity: 0 !important; 
+  transform: translateY(8px) scale(.98) !important; 
+  visibility: hidden !important; 
+  pointer-events: none !important; 
+  transition: opacity .16s ease, transform .16s ease, visibility 0s linear .16s !important; 
+}
+
+/* Karta - fixní šířka a izolace */
+#vfCta .vf-card{
+  position: relative !important;
+  width: 240px !important;
+  max-width: 240px !important;
+  min-width: 240px !important;
+  background: #ffffff !important;
+  color: #0b1720 !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  padding: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  box-shadow: 0 16px 32px -16px rgba(0,0,0,.28) !important;
+  font-family: var(--vf-font) !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  float: none !important;
+  clear: both !important;
 }
 
 /* Hlavička karty */
-.vf-header{ display:flex; align-items:center; gap:10px; }
-.vf-avatar{
-  width:32px; height:32px; flex:0 0 32px;
-  object-fit:contain; border-radius:4px;
-  background:#ffffff;
-  user-select:none; -webkit-user-drag:none;
+#vfCta .vf-header{ 
+  display: flex !important; 
+  align-items: center !important; 
+  gap: 10px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
-.vf-title{ font-size:15px; font-weight:800; line-height:1.1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.vf-title-accent{ color:var(--vf-accent); margin-right:6px; }
-.vf-title-rest{ color:var(--vf-text); }
+
+#vfCta .vf-avatar{
+  width: 32px !important;
+  height: 32px !important;
+  flex: 0 0 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  object-fit: contain !important;
+  border-radius: 4px !important;
+  background: #ffffff !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+#vfCta .vf-title{ 
+  font-size: 15px !important; 
+  font-weight: 800 !important; 
+  line-height: 1.1 !important; 
+  white-space: nowrap !important; 
+  overflow: hidden !important; 
+  text-overflow: ellipsis !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+#vfCta .vf-title-accent{ 
+  color: #007ACA !important; 
+  margin-right: 6px !important; 
+}
+
+#vfCta .vf-title-rest{ 
+  color: #0b1720 !important; 
+}
 
 /* Popisek */
-.vf-desc{ margin:2px 0 4px; font-size:14px; line-height:1.35; color:var(--vf-text); }
+#vfCta .vf-desc{ 
+  margin: 2px 0 4px !important; 
+  font-size: 14px !important; 
+  line-height: 1.35 !important; 
+  color: #0b1720 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
 
 /* CTA tlačítko – stejný styl jako "Spustit nový chat" z style.css */
-.vf-btn{
-  position:relative; overflow:hidden;
-  padding:10px 18px; border:0; border-radius:15px;
-  color:#fff; font-weight:700; letter-spacing:.05em; font-size:15px; cursor:pointer;
-  background:linear-gradient(120deg, #007ACA 0%, #006fb9 50%, #015289 100%);
-  transition:background .2s ease, color .2s ease;
+#vfCta #vfOpenChat.vf-btn{
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 10px 18px !important;
+  border: 0 !important;
+  border-radius: 15px !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  letter-spacing: .05em !important;
+  font-size: 15px !important;
+  cursor: pointer !important;
+  background: linear-gradient(120deg, #007ACA 0%, #006fb9 50%, #015289 100%) !important;
+  transition: background .2s ease, color .2s ease !important;
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: inline-block !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  line-height: normal !important;
 }
-.vf-btn:active{ transform:translateY(1px); }
-.vf-btn::after{
-  content:""; position:absolute; top:0; left:-35%;
-  width:70%; height:100%;
-  background:linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.32) 50%, rgba(255,255,255,0) 100%);
-  transform:translateX(260%) skewX(-24deg); opacity:0;
-  transition:transform .95s cubic-bezier(.22,.61,.36,1), opacity 1ms linear .96s;
-  pointer-events:none; will-change:transform, opacity;
+
+#vfCta #vfOpenChat.vf-btn:active{ 
+  transform: translateY(1px) !important; 
 }
-.vf-btn:hover{
-  background:linear-gradient(120deg, #015289 0%, #006fb9 50%, #007ACA 100%);
+
+#vfCta #vfOpenChat.vf-btn::after{
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -35% !important;
+  width: 70% !important;
+  height: 100% !important;
+  background: linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.32) 50%, rgba(255,255,255,0) 100%) !important;
+  transform: translateX(260%) skewX(-24deg) !important;
+  opacity: 0 !important;
+  transition: transform .95s cubic-bezier(.22,.61,.36,1), opacity 1ms linear .96s !important;
+  pointer-events: none !important;
+  will-change: transform, opacity !important;
 }
-.vf-btn:hover::after{
-  transform:translateX(-260%) skewX(-24deg); opacity:1;
-  transition:transform .95s cubic-bezier(.22,.61,.36,1), opacity 120ms ease 0s;
+
+#vfCta #vfOpenChat.vf-btn:hover{
+  background: linear-gradient(120deg, #015289 0%, #006fb9 50%, #007ACA 100%) !important;
+}
+
+#vfCta #vfOpenChat.vf-btn:hover::after{
+  transform: translateX(-260%) skewX(-24deg) !important;
+  opacity: 1 !important;
+  transition: transform .95s cubic-bezier(.22,.61,.36,1), opacity 120ms ease 0s !important;
 }
 
 /* Zavírací křížek */
-.vf-close{
-  position:absolute; top:-10px; right:-10px; width:24px; height:24px;
-  border-radius:999px; border:1px solid rgba(0,0,0,.15);
-  background:#fff; color:var(--vf-text); cursor:pointer; font-size:14px; line-height:1;
-  display:grid; place-items:center; box-shadow:0 8px 16px -10px rgba(0,0,0,.25);
+#vfCta #vfCtaClose.vf-close{
+  position: absolute !important;
+  top: -10px !important;
+  right: -10px !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(0,0,0,.15) !important;
+  background: #fff !important;
+  color: #0b1720 !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  display: grid !important;
+  place-items: center !important;
+  box-shadow: 0 8px 16px -10px rgba(0,0,0,.25) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
 }
 
 /* Anti-bleed */
-.vf-avatar, .vf-btn, .vf-close, .vf-card, .vf-cta, img{ -webkit-user-drag:none; user-select:none; }
+#vfCta .vf-avatar, 
+#vfCta .vf-btn, 
+#vfCta .vf-close, 
+#vfCta .vf-card, 
+#vfCta .vf-cta, 
+#vfCta img{ 
+  -webkit-user-drag: none !important; 
+  user-select: none !important; 
+}
 
 /* Responzivní design - MOBILY */
 @media (max-width:768px){
-  .vf-cta{ 
-    /* Reset desktop pozice a centrování */
-    right:auto !important;
-    left:20px !important;
-    bottom:calc(80px + 20px) !important;
-    transform:translateY(8px) scale(.98) !important;
+  #vfCta.vf-cta{ 
+    right: auto !important;
+    left: 20px !important;
+    bottom: calc(80px + 20px) !important;
+    transform: translateY(8px) scale(.98) !important;
   }
-  .vf-cta.is-in{ 
-    opacity:1 !important; 
-    transform:translateY(0) scale(1) !important; 
-    visibility:visible !important; 
-    pointer-events:auto !important; 
+  #vfCta.vf-cta.is-in{ 
+    opacity: 1 !important; 
+    transform: translateY(0) scale(1) !important; 
+    visibility: visible !important; 
+    pointer-events: auto !important; 
   }
-  .vf-cta.is-out{ 
-    opacity:0 !important; 
-    transform:translateY(8px) scale(.98) !important; 
-    visibility:hidden !important; 
-    pointer-events:none !important;
+  #vfCta.vf-cta.is-out{ 
+    opacity: 0 !important; 
+    transform: translateY(8px) scale(.98) !important; 
+    visibility: hidden !important; 
+    pointer-events: none !important;
   }
-  .vf-card{ 
-    width:calc(100vw - 32px) !important; 
-    max-width:240px !important;
-    margin:0 !important;
+  #vfCta .vf-card{ 
+    width: calc(100vw - 32px) !important; 
+    max-width: 240px !important;
+    min-width: auto !important;
+    margin: 0 !important;
   }
-  .vf-title{ font-size:14px !important; }
-  .vf-desc{ font-size:13px !important; }
-  .vf-btn{ 
-    padding:12px 20px !important; 
-    font-size:15px !important; 
+  #vfCta .vf-title{ font-size: 14px !important; }
+  #vfCta .vf-desc{ font-size: 13px !important; }
+  #vfCta #vfOpenChat.vf-btn{ 
+    padding: 12px 20px !important; 
+    font-size: 15px !important; 
   }
 }
 
 @media (max-width:480px){
-  .vf-cta{ 
-    /* Menší mobily - menší mezery */
-    left:12px !important;
-    bottom:calc(70px + 16px) !important;
+  #vfCta.vf-cta{ 
+    left: 12px !important;
+    bottom: calc(70px + 16px) !important;
   }
-  .vf-card{ 
-    width:calc(100vw - 24px) !important;
-    max-width:100% !important;
-    padding:12px !important;
-    border-radius:14px !important;
+  #vfCta .vf-card{ 
+    width: calc(100vw - 24px) !important;
+    max-width: 100% !important;
+    min-width: auto !important;
+    padding: 12px !important;
+    border-radius: 14px !important;
   }
-  .vf-avatar{ width:28px !important; height:28px !important; flex:0 0 28px !important; }
-  .vf-title{ font-size:13px !important; }
-  .vf-desc{ font-size:12.5px !important; line-height:1.4 !important; }
-  .vf-btn{ 
-    padding:11px 18px !important; 
-    font-size:14px !important; 
-    border-radius:12px !important;
+  #vfCta .vf-avatar{ 
+    width: 28px !important; 
+    height: 28px !important; 
+    flex: 0 0 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+  }
+  #vfCta .vf-title{ font-size: 13px !important; }
+  #vfCta .vf-desc{ font-size: 12.5px !important; line-height: 1.4 !important; }
+  #vfCta #vfOpenChat.vf-btn{ 
+    padding: 11px 18px !important; 
+    font-size: 14px !important; 
+    border-radius: 12px !important;
   }
 }
   `.trim();
