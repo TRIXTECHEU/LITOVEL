@@ -1,26 +1,23 @@
-/*! PayloadWindow.js — Litovel AI Assistant (municipal persona v2.6, no-bleed) | (c) 2025 TrixTech s.r.o. */
 (function (window, document) {
-  // ===== UX timing - produkční nastavení =====
   var UX = {
-    dwellMs: 30000,        // 30s - uživatel strávil čas na stránce
-    longStayMs: 60000,     // 60s - dlouhodobá návštěva
-    minScrollPct: 30,      // 30% scrollu - uživatel má zájem o obsah
-    showDelayMs: 400,      // 400ms - delay animace
-    bootWindowMs: 3000,    // 3s - boot delay (čekání na načtení Voiceflow)
-    closeCooldownMs: 10000, // 10s - cooldown po zavření
-    enforceEveryMs: 1000,  // 1s - check interval
-    autoHideMs: 90000,     // 90s (1.5 min) - auto-skrytí pokud uživatel nereaguje
-    reShowDelayMs: 8000,   // 8s - re-show po zavření chatu
-    sessionTimeoutMs: 300000, // 5 minut = session timeout
-    autoReShowMs: 180000,  // 3 minuty - po auto-hide znovu povolit zobrazení
-    chatInteractDelayMs: 800,  // 800ms delay - bezpečné odeslání zprávy do chatu
-    vfReadyDelayMs: 3000   // 3s - minimální delay po načtení Voiceflow před spuštěním timerů
+    dwellMs: 30000,
+    longStayMs: 60000,
+    minScrollPct: 30,
+    showDelayMs: 400,
+    bootWindowMs: 3000,
+    closeCooldownMs: 10000,
+    enforceEveryMs: 1000,
+    autoHideMs: 90000,
+    reShowDelayMs: 8000,
+    sessionTimeoutMs: 300000,
+    autoReShowMs: 180000,
+    chatInteractDelayMs: 800,
+    vfReadyDelayMs: 3000
   };
 
-  // ===== Storage klíče =====
   var SS = {
     SUPPRESS: 'vf_payload_suppressed_session',
-    PAYLOAD_DISMISSED: 'vf_payload_dismissed_by_user', // Uživatel zavřel payload křížkem - nezobrazovat po celou session
+    PAYLOAD_DISMISSED: 'vf_payload_dismissed_by_user',
     CHAT_OPEN: 'vf_chat_is_open',
     USER_OPENED_CHAT: 'vf_user_opened_chat',
     CHAT_CLOSED_TIME: 'vf_chat_closed_time',
@@ -34,20 +31,17 @@
     LAST_VISIT: 'vf_last_visit'
   };
 
-  // ===== Městské copy / zprávy (Litovel) - URL-based, formální vykání, bez emoji =====
   var MSG = {
-    // Obecné zprávy pro různé situace
     default:          'Dobrý den. Jsem k dispozici, pokud potřebujete s něčím poradit!',
     deep:             'Hledáte něco konkrétního? Mohu Vám pomoci rychle se zorientovat.',
     linger:           'Jsem k dispozici, pokud potřebujete s něčím poradit nebo něco najít.',
     return_short:     'Máte nějaké další dotazy? Rád pomohu s dalšími informacemi.',
     return_medium:    'Vrátili jste se? Pokud máte další dotaz, klikněte a zeptejte se.',
     return_long:      'Vítejte zpět. Potřebujete něco zjistit nebo vyřídit?',
-    session_expired:  'Dobrý den. Mohu Vám něčím pomoci na webu města?',
+    session_expired:  'Dobrý den. Mohu Vám s něčím pomoci na webu města?',
     idle_reminder:    'Jsem k dispozici pro všechny informace o úřadu, službách a městě.',
     final_attempt:    'Hledáte něco konkrétního? Stačí kliknout a zeptat se.',
     
-    // URL-specific zprávy
     urad:             'Pomohu Vám rychle najít správný odbor, formulář i kontakty.',
     uredni_deska:     'Chcete najít nové dokumenty z úřední desky?',
     aktualni_info:    'Poskytnu Vám praktické informace z města i výzvy z úřadu.',
@@ -92,10 +86,8 @@
     matrika:          'Matrika: rodné listy, sňatky, úmrtí. Vysvětlím postup.'
   };
 
-  /* ===== Vzhled – městský brand Litovel (modrá / světle modrá) ===== */
   var CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
 #vfCta,
 #vfCta *,
 #vfCta *::before,
@@ -115,9 +107,9 @@
 }
 
 :root{
-  --vf-brand:#006fb9;         /* tmavší městská modrá */
-  --vf-accent:#007ACA;        /* světlejší městská modrá */
-  --vf-dark:#015289;          /* tmavá modrá pro gradient */
+  --vf-brand:#006fb9;
+  --vf-accent:#007ACA;
+  --vf-dark:#015289;
   --vf-text:#0b1720;
   --vf-bg:#ffffff;
   --vf-card-w:240px;
@@ -125,7 +117,6 @@
   --vf-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* CTA kontejner - plná izolace */
 #vfCta.vf-cta{
   position: fixed !important;
   right: 18px !important;
@@ -165,7 +156,6 @@
   transition: opacity .16s ease, transform .16s ease, visibility 0s linear .16s !important; 
 }
 
-/* Karta - fixní šířka a izolace */
 #vfCta .vf-card{
   position: relative !important;
   width: 240px !important;
@@ -188,7 +178,6 @@
   clear: both !important;
 }
 
-/* Hlavička karty */
 #vfCta .vf-header{ 
   display: flex !important; 
   align-items: center !important; 
@@ -238,7 +227,6 @@
   color: #0b1720 !important; 
 }
 
-/* Popisek */
 #vfCta .vf-desc{ 
   margin: 2px 0 4px !important; 
   font-size: 14px !important; 
@@ -249,7 +237,6 @@
   box-sizing: border-box !important;
 }
 
-/* CTA tlačítko – stejný styl jako "Spustit nový chat" z style.css */
 #vfCta #vfOpenChat.vf-btn{
   position: relative !important;
   overflow: hidden !important;
@@ -301,7 +288,6 @@
   transition: transform .95s cubic-bezier(.22,.61,.36,1), opacity 120ms ease 0s !important;
 }
 
-/* Zavírací křížek */
 #vfCta #vfCtaClose.vf-close{
   position: absolute !important;
   top: -10px !important;
@@ -328,7 +314,6 @@
   text-align: center !important;
 }
 
-/* Anti-bleed */
 #vfCta .vf-avatar, 
 #vfCta .vf-btn, 
 #vfCta .vf-close, 
@@ -339,7 +324,6 @@
   user-select: none !important; 
 }
 
-/* Responzivní design - MOBILY */
 @media (max-width:768px){
   #vfCta.vf-cta{ 
     right: 20px !important;
@@ -405,7 +389,6 @@
 }
   `.trim();
 
-  // ===== helpers =====
   var now = function(){ return Date.now(); };
   var getSS = function(k){ return sessionStorage.getItem(k); };
   var setSS = function(k,v){ sessionStorage.setItem(k, String(v)); };
@@ -417,7 +400,7 @@
   var ctaEl, btnOpenEl, btnCloseEl, descEl, visible = false;
   var metDwell = false, metScroll = false, deepScroll = false, longStay = false;
   var dwellTimer = null, longTimer = null, enforceTimer = null, boot = true, vfReady = false;
-  var vfReadyTime = null; // Čas kdy se Voiceflow načetl
+  var vfReadyTime = null;
   var chatOpen = false;
   var autoHideTimer = null, reShowTimer = null;
   var showCount = 0, sessionStart = now();
@@ -462,12 +445,10 @@
     document.body.appendChild(wrap.firstChild);
   }
 
-  // Inteligentní URL matching pro personalizované zprávy
   function sectionFromURL(){
     var url = window.location.href.toLowerCase();
     var path = window.location.pathname.toLowerCase();
     
-    // Specifické stránky (od nejkonkrétnějších)
     if (path.includes('stav-zadosti-obcanske-prukazy')) return 'stav_zadosti_op';
     if (path.includes('stav-zadosti-ridicske-prukazy')) return 'stav_zadosti_rp';
     if (path.includes('rezervace-terminu-svatby')) return 'svatba';
@@ -513,96 +494,69 @@
     if (path.includes('informace-pro-obcany')) return 'info_obcany';
     if (path.includes('urad')) return 'urad';
     
-    // Fallback na default
     return 'default';
   }
 
-  // Mapování sekcí na automatické zprávy do chatu
-  // POUZE tyto sekce posílají automatickou zprávu při kliknutí na payload tlačítko
-  // Ostatní sekce (default, aktualni_info, atd.) nezobrazují žádnou zprávu
   function getAutoMessageForSection(section){
     var autoMessages = {
-      // Poplatky a platby
       'platby': 'Jaké se platí ve městě poplatky?',
       'poplatek_odpady': 'Jak zaplatit poplatek za odpady?',
       'poplatek_psi': 'Kolik stojí poplatek za psa?',
       'poplatek_hrbitov': 'Jaké jsou poplatky za hřbitovní místa?',
       'moznosti_platby': 'Jak mohu platit poplatky online?',
       
-      // Doklady a průkazy
       'prukazy': 'Jak si vyřídit občanský průkaz nebo řidičák?',
       'stav_zadosti_op': 'Jak zjistím stav žádosti o občanský průkaz?',
       'stav_zadosti_rp': 'Kdy bude připraven můj řidičský průkaz?',
       
-      // Rezervace a termíny
       'rezervace': 'Jak se objednat na úřad?',
       'svatba': 'Jak si rezervovat termín svatby?',
       
-      // Odpady a svoz
       'kalendar_svozu': 'Kdy se sváží odpad v mé části města?',
       'harmonogram_svoz': 'Jaký je harmonogram svozu odpadů?',
       'bioodpad': 'Kdy budou kontejnery na bioodpad?',
       
-      // Informace a služby
       'uredni_deska': 'Co nového je na úřední desce?',
       'events': 'Jaké jsou aktuální akce ve městě?',
       'noviny': 'Kde najdu poslední Litovelské noviny?',
       'mestska_policie': 'Jak kontaktovat městskou policii?',
       'uredni_hodiny': 'Jaké jsou úřední hodiny?',
       
-      // Úřední záležitosti
       'odbory': 'Který odbor řeší moji záležitost?',
       'kontakty': 'Jak kontaktovat městský úřad?',
       'matrika': 'Jak si vyřídit rodný list nebo oddací list?',
       'urad': 'Co mohu vyřídit na městském úřadě?'
     };
     
-    // Vrátí zprávu nebo null (= žádná automatická zpráva)
     return autoMessages[section] || null;
   }
 
   function pickMessage(ctx){
-    // Zjisti, jestli chat byl v minulosti zavřen v této session
     var chatClosedTime = getSS(SS.CHAT_CLOSED_TIME);
     var hadChatInteraction = chatClosedTime ? true : false;
     
-    // NOVÁ STRÁNKA / NOVÁ NÁVŠTĚVA (uživatel nepracoval s chatem)
-    // → Vždy zobraz úvodní zprávu, i když showCount > 0
     if (!hadChatInteraction) {
-      // První zobrazení - vždy default nebo URL-specific zpráva
       if (showCount === 0) {
         var sec = sectionFromURL();
         return MSG[sec] || MSG.default;
       }
-      // Po prvním zobrazení - podle kontextu
-      // Priorita 1: Deep scroll - uživatel aktivně prohledává obsah
       if (ctx.deepScroll) return MSG.deep;
-      // Priorita 2: Long stay - uživatel je na stránce déle
       if (ctx.longStay) return MSG.linger;
-      // Priorita 3: URL-specific zpráva nebo default
       var sec = sectionFromURL();
       return MSG[sec] || MSG.default;
     }
     
-    // OPAKOVANÉ ZOBRAZENÍ (chat byl v minulosti zavřen)
-    // → Zobraz "návratové" zprávy podle času od zavření
     var timeSinceClose = now() - Number(chatClosedTime);
 
-    // Krátce po zavření (do 1 minuty) - decentní
     if (timeSinceClose < 60000) return MSG.return_short;
-    // Střední doba (1-5 minut) - aktivnější nabídka
     if (timeSinceClose < 300000) return MSG.return_medium;
-    // Dlouho po zavření (5+ minut) - nová návštěva
     if (timeSinceClose < 600000) return MSG.return_long;
 
-    // Velmi dlouhá session - uživatel je tu velmi dlouho
     var sessionAge = now() - sessionStart;
     if (sessionAge > UX.sessionTimeoutMs) return MSG.session_expired;
     
-    // Příliš mnoho zobrazení - jemnější přístup
     if (showCount > 3) return MSG.final_attempt;
     
-    // Idle reminder pro dlouhou návštěvu
     if (ctx.longStay) return MSG.idle_reminder;
 
     return MSG.return_medium;
@@ -613,27 +567,21 @@
     descEl.innerHTML = pickMessage({ deepScroll: deepScroll, longStay: longStay });
   }
 
-  // ===== VF: zjištění viditelnosti chatu =====
   function detectChatVisible(){
-    // 1. Zkontroluj Voiceflow API (nejspolehlivější)
     if (window.voiceflow?.chat && typeof window.voiceflow.chat.isOpen === 'function') {
       try { 
         var isOpen = window.voiceflow.chat.isOpen();
-        return isOpen; // Důvěřuj API - je to nejspolehlivější
+        return isOpen;
       } catch(e) {
-        // API selhalo, pokračuj na DOM kontrolu
       }
     }
     
-    // 2. Pokud API není dostupné, zkontroluj DOM
-    // Launcher je SKRYTÝ když je chat otevřený
     var launcher = document.querySelector('.vfrc-launcher, button.vfrc-launcher');
     if (launcher) {
       var launcherCS = window.getComputedStyle(launcher);
       var launcherRect = launcher.getBoundingClientRect();
       var launcherVisible = launcherCS && launcherCS.display !== 'none' && launcherCS.visibility !== 'hidden' && launcherCS.opacity !== '0' && launcherRect.width > 10;
       
-      // Pokud je launcher SKRYTÝ = chat je OTEVŘENÝ
       return !launcherVisible;
     }
     
@@ -658,10 +606,8 @@
     if (sessionOpen) return false;
     if (suppressed) return false;
     
-    // Pokud je chat dlouho zavřený (>2 min), ignoruj dwell/scroll požadavky
-    // = uživatel měl čas prozkoumat web, můžeme se znovu nabídnout
     var chatClosedTime = getSS(SS.CHAT_CLOSED_TIME);
-    var longClosed = chatClosedTime && (now() - Number(chatClosedTime) > 120000); // 2 minuty
+    var longClosed = chatClosedTime && (now() - Number(chatClosedTime) > 120000);
     
     if (!longClosed && !dwellMet && !scrollMet) return false;
     if (cooldownActive) return false;
@@ -725,7 +671,6 @@
     addEventListener('scroll', onScroll, { passive:true }); onScroll();
   }
   function maybeShow(){ 
-    // Extra kontrola před zobrazením
     if (chatOpen || detectChatVisible()) return;
     if (!canShow()) return; 
     
@@ -755,20 +700,17 @@
       var openNow = detectChatVisible();
       var wasChatOpen = chatOpen;
 
-      // PRIORITA: Pokud je chat otevřený, schovat payload a nic dalšího nedělat
       if (openNow || chatOpen){
         if (!chatOpen){
           chatOpen = true;
           setSS(SS.CHAT_OPEN,'1');
         }
-        // Pokud je payload viditelné a chat je otevřený, VŽDY ho schovat
         if (visible) {
           hideCTA();
         }
-        return; // STOP - nic dalšího nedělat když je chat otevřený
+        return;
       }
 
-      // Chat byl zavřený - naplánovat znovu zobrazení
       if (!openNow && wasChatOpen){
         chatOpen = false;
         setSS(SS.CHAT_OPEN, '0');
@@ -786,8 +728,6 @@
         return;
       }
 
-      // Chat není otevřený a CTA není viditelný - zkusit zobrazit
-      // DŮLEŽITÉ: Zobraz POUZE pokud chat JE OPRAVDU zavřený
       if (!openNow && !chatOpen && !visible && canShow()){
         updateMessage();
         showCTA();
@@ -796,7 +736,6 @@
   }
 
   function observeVF(){
-    // Sleduj LAUNCHER tlačítko - když zmizí, chat je otevřený
     var checkLauncher = function() {
       var launcher = document.querySelector('.vfrc-launcher, button.vfrc-launcher');
       if (!launcher) return;
@@ -804,13 +743,11 @@
       var launcherCS = window.getComputedStyle(launcher);
       var launcherVisible = launcherCS && launcherCS.display !== 'none' && launcherCS.visibility !== 'hidden' && launcherCS.opacity !== '0';
       
-      // Launcher ZMIZEL = chat se otevřel
       if (!launcherVisible && !chatOpen) {
         chatOpen = true;
         setSS(SS.CHAT_OPEN,'1');
         if (visible) hideCTA();
       }
-      // Launcher se OBJEVIL = chat se zavřel
       else if (launcherVisible && chatOpen) {
         chatOpen = false;
         setSS(SS.CHAT_OPEN, '0');
@@ -818,7 +755,6 @@
       }
     };
     
-    // Observer na celý body
     var mo = new MutationObserver(checkLauncher);
     mo.observe(document.body, { 
       childList: true, 
@@ -827,7 +763,6 @@
       attributeFilter: ['style', 'class'] 
     });
     
-    // Observer přímo na launcher pokud existuje
     var launcher = document.querySelector('.vfrc-launcher, button.vfrc-launcher');
     if (launcher) {
       var launcherMo = new MutationObserver(checkLauncher);
