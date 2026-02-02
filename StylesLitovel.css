@@ -212,7 +212,7 @@
 
   /* Image */
   --card-img-width: calc(100% - 30px);
-  --card-img-height: 120px;
+  --card-img-height: auto;
   --card-img-fit: cover;
   --card-img-radius: 20px 20px 0 0;
   --card-img-margin: 15px 15px 0 15px;
@@ -272,20 +272,19 @@
   --carousel-icon-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-arrow-carousel.svg");
   --carousel-rotate-left: 0deg;
   --carousel-rotate-right: 0deg;
-  --carousel-btn-size: 36px;
+  --carousel-btn-size: 42px;
   --carousel-btn-radius: 50%;
-  --carousel-btn-bg: rgba(255, 255, 255, 0.95);
-  --carousel-btn-border: 1px solid rgba(0, 0, 0, 0.08);
-  --carousel-btn-color: #006FB9;
+  --carousel-btn-bg: #FFFFFF;
+  --carousel-btn-border: 2px solid #006FB9;
   --carousel-btn-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   --carousel-btn-z-index: 2;
   --carousel-btn-transition: transform 0.2s ease, background-color 0.2s ease, border 0.2s ease, color 0.2s ease;
-  --carousel-icon-inner-size: 18px 18px;
+  --carousel-icon-inner-size: 32px 32px;
   
   --carousel-btn-bg-hover: #FFFFFF;
-  --carousel-btn-border-hover: 1px solid rgba(0, 111, 185, 0.3);
-  --carousel-btn-color-hover: #006FB9;
+  --carousel-btn-border-hover: 2px solid #006FB9;
   --carousel-btn-scale-hover: 1.08;
+  --carousel-icon-url-hover: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-arrow-carousel-hover.svg");
 
 
   /* 11) AI badge and scroll button */
@@ -300,7 +299,7 @@
   --ai-badge-text: "Odpověď byla generována pomocí AI";
   --ai-text-color: #FFFFFF;
   --ai-text-weight: 600;
-  --ai-text-size: 12.5px;
+  --ai-text-size: 12px;
   --ai-text-line-height: normal;
   --ai-text-letter-spacing: normal;
 
@@ -431,7 +430,7 @@
   --privacy-pri-shine-display: block;
   --privacy-pri-shine-color: linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.32) 50%, rgba(255,255,255,0) 100%);
 
-  /* Secondary (GDPR) */
+  /* Secondary (Decline) */
   --privacy-sec-bg: #FFFFFF;
   --privacy-sec-text: #1A1E23;
   --privacy-sec-border: 1px solid #E5E7EB;
