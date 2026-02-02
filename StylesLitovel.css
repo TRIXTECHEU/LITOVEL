@@ -1,9 +1,7 @@
 /* TrixTech s.r.o. @2026 */
-
 @import url('https://trixtecheu.github.io/city-assistants-kit/styles/chat-widget.css');
 
 :host {
-  
   /* 1) Header and avatar */
   --header-height: 65px;
   --header-bg: linear-gradient(120deg, #007ACA 0%, #006FB9 50%, #015289 100%);
@@ -461,5 +459,4 @@
   --chat-mobile-radius: 0;
   --chat-mobile-inner-radius: 0;
   --chat-mobile-shadow: none;
-  
 }
