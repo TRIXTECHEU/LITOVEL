@@ -254,7 +254,7 @@
   --card-btn-shine-color: linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.32) 50%, rgba(255,255,255,0) 100%);
 
   /* 10.10) Card button icon */
-  --card-btn-icon-url: url("./1823685.svg");
+  --card-btn-icon-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-link.svg");
   --card-btn-icon-display: block;
   --card-btn-icon-size: 14px;
   --card-btn-icon-gap: 9px;
