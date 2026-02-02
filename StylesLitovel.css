@@ -1,100 +1,113 @@
+/* TrixTech s.r.o. @2026 */
+
 @import url('https://trixtecheu.github.io/city-assistants-kit/styles/chat-widget.css');
 
 :host {
-  /* 1) HEADER SETTINGS + AVATAR */
-  /* 1.1) Header color */
+  
+  /* 1) Header and avatar */
   --header-height: 65px;
   --header-bg: linear-gradient(120deg, #007ACA 0%, #006FB9 50%, #015289 100%);
   --header-padding: 12px 16px 12px 12px;
   --header-border: none;
   --header-border-radius: 0;
 
-  /* 1.2) Header avatar */
+  /* Avatar image in header */
   --header-avatar-height: 120%;
   --header-avatar-max-height: 120%;
   --header-avatar-radius: 0;
 
 
-  /* 2) HEADER ICONS */
-  /* 2.1) Basic settings for icon buttons */
+  /* 2) Header icons (refresh, close) */
+  /* Base Settings */
   --icon-base-transform: translate(-50%, -50%) scale(1);
   --icon-base-filter: brightness(1);
   --icon-transition: transform .6s ease-in-out, filter .8s ease-in-out;
-  --icon-refresh-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-refresh.svg");
-  --icon-close-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-close.svg");
-
-  /* 2.2) Icon button dimensions */
   --icon-btn-size: 40px;
-  --icon-refresh-size: 38px;
-  --icon-close-size: 28px;
   --icon-focus-color: rgba(0, 123, 204, 0.35);
   --icon-focus-radius: 8px;
 
-  /* 2.3) Refresh icon settings */
+  /* Refresh Icon */
+  --icon-refresh-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-refresh.svg");
+  --icon-refresh-size: 38px;
   --icon-refresh-hover-transform: translate(-50%, -50%) scale(1.2) rotate(180deg);
+  
+  /* Close Icon */
+  --icon-close-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-close.svg");
+  --icon-close-size: 28px;
+  --icon-close-hover-transform: translate(-50%, -50%) scale(1.2);
   --icon-hover-filter: brightness(1.1);
 
-  /* 2.4) Close icon settings */
-  --icon-close-hover-transform: translate(-50%, -50%) scale(1.2);
 
-
-  /* 3) SYSTEM BUTTONS (START NEW CHAT / CANCEL) */
-  /* 3.1) Modification of the START NEW CHAT and CANCEL buttons*/
-  --btn-start-text: "Spustit nový chat";
-  --btn-cancel-text: "Zrušit";
+  /* 3) System buttons (start new chat, cancel) */
+  /* 3.1) Shared Geometry & Typography */
   --btn-font-size: 16px;
   --btn-font-weight: 700;
   --btn-letter-spacing: 0.05em;
   --btn-padding: 16px;
   --btn-radius: 15px;
-  --btn-border-width: 2px;
-  --btn-cancel-border-width: 1px;
-  --btn-start-transition: background .2s ease;
-  --btn-shine-display: block;
-
-  /* 3.2) Modification of the START NEW CHAT button header */
-  --btn-start-bg: linear-gradient(120deg, #007ACA 0%, #006FB9 50%, #015289 100%);
-  --btn-start-bg-hover: linear-gradient(120deg, #015289 0%, #006FB9 50%, #007ACA 100%);
-  --btn-start-border: #DEECF5;
-  --btn-start-text-color: #FFFFFF;
-
-  /* 3.3) Modification of the CANCEL button header */
-  --btn-cancel-bg: #FFFFFF;
-  --btn-cancel-bg-hover: #F7F7F7;
-  --btn-cancel-border: #E5E7EB;
-  --btn-cancel-text-color: #1A1E23;
   --btn-focus-shadow: rgba(0, 123, 204, .25);
 
+  /* 3.2) START Button Configuration */
+  --btn-start-text: "Spustit nový chat";
+  --btn-border-width: 2px;
+  --btn-start-transition: background .2s ease;
+  
+  /* Start - Default */
+  --btn-start-bg: linear-gradient(120deg, #007ACA 0%, #006FB9 50%, #015289 100%);
+  --btn-start-text-color: #FFFFFF;
+  --btn-start-border: #DEECF5;
+  
+  /* Start - Hover */
+  --btn-start-bg-hover: linear-gradient(120deg, #015289 0%, #006FB9 50%, #007ACA 100%);
+  --btn-start-text-color-hover: #FFFFFF;
+  --btn-start-border-hover: #DEECF5;
+  
+  /* Start - Shine Effect */
+  --btn-shine-display: block;
 
-  /* 4) SUBHEADING TEXTS AND ICON FORMATTING */
-  /* 4.1) Subheader icon formatting */
+  /* 3.3) CANCEL Button Configuration */
+  --btn-cancel-text: "Zrušit";
+  --btn-cancel-border-width: 1px;
+  
+  /* Cancel - Default */
+  --btn-cancel-bg: #FFFFFF;
+  --btn-cancel-text-color: #1A1E23;
+  --btn-cancel-border: #E5E7EB;
+  
+  /* Cancel - Hover */
+  --btn-cancel-bg-hover: #F7F7F7;
+  --btn-cancel-text-color-hover: #1A1E23;
+  --btn-cancel-border-hover: #E5E7EB;
+
+
+  /* 4) Subheader (title and description under avatar) */
   --subheader-padding: 38px 20px 18px;
   --subheader-avatar-clip: circle(50% at 50% 50%);
-
-  /* 4.2) Subheader text formatting */
   --subheader-text-color: #656D75;
+
+  /* Title */
   --subheader-title-text: "Poznejte město Litovel";
   --subheader-title-size: 16px;
   --subheader-title-weight: 700;
   --subheader-title-align: center;
 
-  /* 4.3) Subheader description formatting */
+  /* Description */
   --subheader-desc-text: "prostřednictvím našeho AI asistenta";
   --subheader-desc-size: 14px;
   --subheader-desc-weight: normal;
   --subheader-desc-align: center;
 
 
-  /* 5) CHATBOT BACKGROUND & FOOTER */
-  /* 5.1) Chatbot background */
+  /* 5) Chat background and footer strip */
   --chat-bg-image: url("https://trixtecheu.github.io/LITOVEL/images/litovel-background.jpg");
   --chat-bg-size: cover;
   --chat-bg-repeat: no-repeat;
   --chat-bg-position: center center;
   --chat-bg-color-overlay: transparent;
 
-  /* 5.4) Standard Chat Footer (Input Area) */
   --footer-bg-color: #006FB9;
+  
+  /* Footer Start Button (The one in the input area initially) */
   --footer-start-btn-bg: #FFFFFF;
   --footer-start-btn-bg-image: none;
   --footer-start-btn-shadow: none;
@@ -102,22 +115,18 @@
   --footer-start-btn-opacity: 1;
 
 
-  /* 6) CHATBOT AVATAR */
-  /* 6.1) Chatbot avatar customization */
+  /* 6) Chatbot avatar (next to assistant messages) */
   --chat-avatar-width: 38px;
   --chat-avatar-height: 38px;
   --chat-avatar-radius: 50%;
 
 
-  /* 7) CHAT BUBBLES & TYPOGRAPHY */
-  /* 7.1) General Text Alignment */
+  /* 7) Chat bubbles and text */
   --message-text-align: left;
   --message-margin-left: 0;
-
-  /* 7.3) Shared Bubble Radius (User & System) */
   --chat-bubble-radius: 20px;
 
-  /* 7.4) User Message Specifics */
+  /* User Message (Right) */
   --user-msg-bg: #006FB9;
   --user-msg-text-color: #FFFFFF;
   --user-msg-weight: 700;
@@ -127,7 +136,7 @@
   --user-msg-shadow: none;
   --user-msg-border: none;
 
-  /* 7.5) Assistant Message Specifics */
+  /* System Message (Left) */
   --system-msg-size: 15.5px;
   --system-msg-line-height: 21px;
   --system-msg-text-color: #464B52;
@@ -135,14 +144,14 @@
   --system-msg-letter-spacing: normal;
 
 
-  /* 8) MAIN INTERACTION BUTTONS */
-  /* 8.1) Buttons container alignment & spacing */
+  /* 8) Main action buttons (in assistant replies) */
+  /* Container */
   --main-btn-container-padding: 50px;
   --main-btn-alignment: flex-start;
   --main-btn-flex-wrap: wrap;
   --main-btn-gap: 8px;
 
-  /* 8.2) Main buttons styling */
+  /* Button Styling */
   --main-btn-font-size: 15px;
   --main-btn-font-weight: 700;
   --main-btn-letter-spacing: .05em;
@@ -155,34 +164,35 @@
   --main-btn-overflow: hidden;
   --main-btn-cursor: pointer;
   --main-btn-transition: background .2s ease, color .2s ease;
+  
   --main-btn-focus-outline: none;
   --main-btn-focus-shadow: 0 0 0 3px rgba(0, 123, 204, 0.25);
-  --main-btn-text-color: #FFF;
+
+  /* Default State */
   --main-btn-bg: linear-gradient(120deg, #007ACA 0%, #006FB9 50%, #015289 100%);
+  --main-btn-text-color: #FFF;
   --main-btn-border: 2px solid #DEECF5;
-  --main-btn-text-color-hover: #FFF;
+  
+  /* Hover State */
   --main-btn-bg-hover: linear-gradient(120deg, #015289 0%, #006FB9 50%, #007ACA 100%);
+  --main-btn-text-color-hover: #FFF;
   --main-btn-border-hover: 2px solid #DEECF5;
 
-  /* 8.3) Shine effect */
+  /* Shine Effect */
   --main-btn-shine-display: block;
 
-  /* 8.6) JS replaced icons */
+  /* Custom JS Icon Support */
   --js-icon-display: block;
   --js-icon-size: 22px;
   --js-icon-gap: 8px;
   --js-btn-padding-left: 16px;
 
 
-  /* 9) SYSTEM STATES */
-  /* 9.1) Status container */
+  /* 9) Status line (chat has ended) */
   --system-status-margin-top: 15px;
   --system-status-margin-bottom: 15px;
-
-  /* 9.2) Status text element */
   --system-status-font-size-reset: 0;
-
-  /* 9.3) Status text injection */
+  
   --system-status-text: "Chat byl ukončen";
   --system-status-color: #656D75;
   --system-status-size: 13.5px;
@@ -190,26 +200,24 @@
   --system-status-line-height: 1.4;
   --system-status-bg: transparent;
   --system-status-padding: 0;
-
-  /* 9.4) Status divider lines */
   --system-status-line-color: #656D75;
 
 
-  /* 10) CAROUSEL */
-  /* 10.1) Card container */
+  /* 10) Carousel (cards with image, title, description, button) */
+  /* Structure */
   --card-bg-color: #FFFFFF;
   --card-radius: 20px;
   --card-border: 1px solid transparent;
   --card-overflow: hidden;
 
-  /* 10.2) Card image */
+  /* Image */
   --card-img-width: calc(100% - 30px);
   --card-img-height: 120px;
   --card-img-fit: cover;
   --card-img-radius: 20px 20px 0 0;
   --card-img-margin: 15px 15px 0 15px;
 
-  /* 10.3) Card header */
+  /* Header & Desc */
   --card-header-size: 16px;
   --card-header-weight: 700;
   --card-header-color: #006FB9;
@@ -218,30 +226,22 @@
   --card-header-margin-top: 0;
   --card-header-line-height: 1.4;
 
-  /* 10.4) Card description */
   --card-desc-size: 12px;
   --card-desc-color: #333333;
   --card-desc-line-height: 1.5;
   --card-desc-padding: 0;
   --card-desc-weight: normal;
   --card-desc-letter-spacing: normal;
-
-  /* 10.5) Card content wrapper */
   --card-content-padding: 15px;
 
-  /* 10.6) Card button styling */
+  /* Card Button */
   --card-btn-height: 45px;
   --card-btn-radius: 15px;
   --card-btn-padding-top: 2px;
   --card-btn-font-size: 14.5px;
   --card-btn-font-weight: 700;
   --card-btn-spacing: 0.05em;
-  --card-btn-text-color: #FFFFFF;
   --card-btn-line-height: normal;
-  --card-btn-bg: linear-gradient(120deg, #007ACA 0%, #006FB9 50%, #015289 100%);
-  --card-btn-border: 2px solid #DEECF5;
-  --card-btn-bg-hover: linear-gradient(120deg, #015289 0%, #006FB9 50%, #007ACA 100%);
-  --card-btn-border-hover: 2px solid #DEECF5;
   --card-btn-shadow: none;
   --card-btn-overflow: hidden;
   --card-btn-cursor: pointer;
@@ -249,84 +249,77 @@
   --card-btn-focus-outline: none;
   --card-btn-focus-shadow: 0 0 0 3px rgba(0,123,204,.25);
 
-  /* 10.8) Card button shine effect */
+  /* Card Button Colors */
+  --card-btn-bg: linear-gradient(120deg, #007ACA 0%, #006FB9 50%, #015289 100%);
+  --card-btn-text-color: #FFFFFF;
+  --card-btn-border: 2px solid #DEECF5;
+  
+  --card-btn-bg-hover: linear-gradient(120deg, #015289 0%, #006FB9 50%, #007ACA 100%);
+  --card-btn-text-color-hover: #FFFFFF;
+  --card-btn-border-hover: 2px solid #DEECF5;
+
+  /* Card Button Extras */
   --card-btn-shine-display: block;
   --card-btn-shine-color: linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.32) 50%, rgba(255,255,255,0) 100%);
-
-  /* 10.10) Card button icon */
-  --card-btn-icon-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-link.svg");
+  
+  --card-btn-icon-url: url("https://trixtecheu.github.io/LITOVEL/images/icons//icon-link.svg");
   --card-btn-icon-display: block;
   --card-btn-icon-size: 14px;
   --card-btn-icon-gap: 9px;
   --card-btn-icon-move: 0px;
 
-  /* 10.11) Carousel navigation button */
-  --carousel-btn-size: 46px;
-  --carousel-btn-radius: 50%;
-  --carousel-btn-bg: #FFFFFF;
-  --carousel-btn-border: 2px solid #006FB9;
-  --carousel-btn-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  --carousel-btn-z-index: 100;
-  --carousel-btn-padding: 0;
-  --carousel-btn-margin: 0;
-  --carousel-btn-cursor: pointer;
-  --carousel-btn-transition: 0.2s ease;
-  --carousel-btn-transition-full: opacity 0.2s, transform 0.2s ease, background-color 0.2s ease;
-  --carousel-btn-disabled-opacity: 0;
-  --carousel-btn-disabled-visibility: hidden;
-  --carousel-btn-disabled-pointer-events: none;
-  --carousel-btn-hover-cursor: pointer;
-
-  /* 10.14) Carousel button icon */
+  /* Carousel Navigation */
   --carousel-icon-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-arrow-carousel.svg");
-  --carousel-icon-inner-size: 28px;
-
-  /* 10.15) Carousel button rotation */
   --carousel-rotate-left: 0deg;
   --carousel-rotate-right: 0deg;
+  --carousel-btn-size: 36px;
+  --carousel-btn-radius: 50%;
+  --carousel-btn-bg: rgba(255, 255, 255, 0.95);
+  --carousel-btn-border: 1px solid rgba(0, 0, 0, 0.08);
+  --carousel-btn-color: #006FB9;
+  --carousel-btn-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --carousel-btn-z-index: 2;
+  --carousel-btn-transition: transform 0.2s ease, background-color 0.2s ease, border 0.2s ease, color 0.2s ease;
+  --carousel-icon-inner-size: 18px 18px;
+  
+  --carousel-btn-bg-hover: #FFFFFF;
+  --carousel-btn-border-hover: 1px solid rgba(0, 111, 185, 0.3);
+  --carousel-btn-color-hover: #006FB9;
+  --carousel-btn-scale-hover: 1.08;
 
-  /* 10.17) Carousel button hover */
-  --carousel-btn-bg-hover: #FFF;
-  --carousel-btn-scale-hover: 1.1;
 
-
-  /* 11) AI BADGE SETTINGS */
-  /* 11.1) Icon styling */
+  /* 11) AI badge and scroll button */
   --ai-icon-image: url('https://trixtecheu.github.io/LITOVEL/images/icons/icon-ai-sparkles.png');
   --ai-icon-width: 24px;
   --ai-icon-height: 24px;
-
-  /* 11.2) Container styling */
   --ai-label-bg: #040B04;
   --ai-label-radius: 0 0 20px 20px;
   --ai-label-padding: 9px 16px 8px;
   --ai-label-gap: 7px;
-
-  /* 11.3) Text styling */
+  
+  --ai-badge-text: "Odpověď byla generována pomocí AI";
   --ai-text-color: #FFFFFF;
   --ai-text-weight: 600;
   --ai-text-size: inherit;
   --ai-text-line-height: normal;
   --ai-text-letter-spacing: normal;
 
-
-  /* 12) UTILITIES */
-  /* 12.1) Widget scroll button */
+  /* Scroll Button */
   --scroll-btn-bg-color: #FFF;
   --scroll-btn-icon: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-scroll-down.svg");
   --scroll-btn-size: 16px 16px;
   --scroll-btn-border: 2px solid #006FB9;
 
 
-  /* 13) FOOTER INPUT & SEND BUTTON */
-  /* 13.1) Placeholder styling */
+  /* 12) Footer input and send button */
+  /* Placeholder */
   --input-placeholder-size: 16px;
   --input-placeholder-spacing: 0.03em;
   --input-placeholder-color: #6A6A6A;
   --input-placeholder-opacity: 1;
   --input-placeholder-weight: normal;
 
-  /* 13.2) Input container wrapper */
+  /* Input Container */
   --input-bg-color: #FFFFFF;
   --input-border: 1px solid #E2E4E5;
   --input-radius: 25px;
@@ -338,48 +331,42 @@
   --input-resize: none;
   --input-outline: transparent 0px;
 
-  /* 13.3) User text typography */
+  /* Input Text */
   --input-font-size: 15.5px;
   --input-text-color: #1A1E23;
   --input-line-height: 20px;
   --input-text-padding: 2px 0 0;
 
-  /* 13.4) Send button base styles */
+  /* Send Button */
   --send-btn-size: 40px;
   --send-btn-radius: 50%;
   --send-icon-size: 28px;
   --send-icon-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-send.svg");
   --send-btn-transition: all 0.2s ease;
   --send-btn-border: none;
-
-  /* 13.7) Send button disabled state */
+  
   --send-btn-disabled-bg: #F1F2F2;
   --send-btn-disabled-color: #656D75;
-
-  /* 13.8) Send button enabled state */
+  
   --send-btn-enabled-bg: #006FB9;
   --send-btn-enabled-color: #FFFFFF;
   --send-btn-shadow: 0 -1px rgba(0, 0, 0, 0.16) inset;
-
-  /* 13.9) Send button hover state */
+  
   --send-btn-hover-bg: #005A9E;
   --send-btn-hover-scale: 1.05;
 
 
-  /* 14) FOOTER LOGO */
-  /* 14.1) Logo styling */
+  /* 13) Footer logo and launcher */
   --footer-logo-image: url("https://trixtecheu.github.io/LITOVEL/images/badge-powered-by-trix-white.png");
   --footer-logo-width: 160px;
   --footer-logo-height: 40px;
 
-
-  /* 15) LAUNCHER */
-  /* 15.2) Launcher container positioning */
+  /* Launcher Positioning */
   --pos-bottom: 20px;
   --pos-right: 20px;
   --launcher-container-z-index: 100;
 
-  /* 15.3) Launcher button - open chat */
+  /* Open Button */
   --btn-size: 75px;
   --bg-color: #006FB9;
   --icon-size: 65px;
@@ -387,20 +374,19 @@
   --launcher-open-transition: transform 0.2s ease-in-out;
   --launcher-open-hover-scale: 1.1;
 
-  /* 15.3.1) Launcher button - close chat */
+  /* Close Button */
   --close-btn-size: 0px;
   --close-bg-color: #006FB9;
   --close-icon-size: 0px;
   --launcher-close-shadow: 0 4px 10px rgba(0,0,0,0.2);
   --launcher-close-transition: transform 0.2s ease-in-out;
   --launcher-close-hover-scale: 1.1;
-
-  /* 15.9) Chat spacing */
+  
   --launcher-icon-transition: transform 180ms ease;
 
 
-  /* 16) PRIVACY POLICY WINDOW */
-  /* 16.1) Privacy policy banner title */
+  /* 14) Privacy / GDPR popup */
+  /* Title */
   --privacy-title-size: 18px;
   --privacy-title-weight: 700;
   --privacy-title-line-height: 1.5;
@@ -409,7 +395,7 @@
   --privacy-title-spacing: -0.01em;
   --privacy-title-margin: 0 0 12px 0;
 
-  /* 16.2) Privacy policy banner text */
+  /* Text */
   --privacy-text-size: 15.5px;
   --privacy-text-line-height: 1.5;
   --privacy-text-color: #464B52;
@@ -418,14 +404,13 @@
   --privacy-text-weight: normal;
   --privacy-text-letter-spacing: normal;
 
-  /* 16.3) Privacy policy banner icon container */
+  /* Icon */
   --privacy-icon-size: 22px;
   --privacy-icon-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-lock.png");
   --privacy-icon-margin: 0;
   --privacy-icon-transform: translateY(0px);
 
-  /* 16.5) PRIVACY BUTTONS */
-  /* 16.5.1) Common button styles */
+  /* Buttons */
   --privacy-btn-radius: 15px;
   --privacy-btn-padding: 12px 16px;
   --privacy-btn-font-size: 16px;
@@ -434,28 +419,31 @@
   --privacy-btn-line-height: 1.4;
   --privacy-btn-transition: background .2s ease;
 
-  /* 16.5.2) Primary button base styles */
+  /* Primary (Accept) */
   --privacy-pri-bg: linear-gradient(120deg, #007ACA 0%, #006FB9 50%, #015289 100%);
-  --privacy-pri-bg-hover: linear-gradient(120deg, #015289 0%, #006FB9 50%, #007ACA 100%);
   --privacy-pri-text: #FFFFFF;
   --privacy-pri-border: 2px solid #DEECF5;
+  
+  --privacy-pri-bg-hover: linear-gradient(120deg, #015289 0%, #006FB9 50%, #007ACA 100%);
+  --privacy-pri-text-hover: #FFFFFF;
+  --privacy-pri-border-hover: 2px solid #DEECF5;
+  
   --privacy-pri-shine-display: block;
   --privacy-pri-shine-color: linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.32) 50%, rgba(255,255,255,0) 100%);
 
-  /* 16.5.6) Secondary button base styles */
+  /* Secondary (Decline) */
   --privacy-sec-bg: #FFFFFF;
-  --privacy-sec-bg-hover: #F7F7F7;
   --privacy-sec-text: #1A1E23;
   --privacy-sec-border: 1px solid #E5E7EB;
+  --privacy-sec-bg-hover: #F7F7F7;
 
 
-  /* 17) RESPONSIVE DESIGN & CONTAINER STABILITY */
-  /* 17.1) Main chat container */
+  /* 15) Chat window and responsive */
   --chat-bg-color: #FFFFFF;
   --chat-radius: 25px;
   --chat-shadow: 0 0 0 1px rgba(22, 26, 30, 0.06), 0 8px 80px rgba(22, 26, 30, 0.16);
 
-  /* 17.2) Chat positioning overlay */
+  /* Desktop */
   --chat-desktop-width: 460px;
   --chat-desktop-right: 10px;
   --chat-desktop-bottom: 6px;
@@ -463,7 +451,7 @@
   --chat-height-minus: 104px;
   --chat-z-index: 9999;
 
-  /* 17.4) Mobile responsiveness */
+  /* Mobile */
   --chat-mobile-right: 0;
   --chat-mobile-bottom: 0;
   --chat-mobile-width: 100%;
@@ -471,4 +459,5 @@
   --chat-mobile-radius: 0;
   --chat-mobile-inner-radius: 0;
   --chat-mobile-shadow: none;
+  
 }
