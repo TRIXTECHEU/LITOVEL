@@ -22,6 +22,8 @@
         sendTitle: 'Odeslat',
         openTitle: 'Otevřít chat',
         closeTitle: 'Zavřít chat',
+        dictationStart: 'Spustit diktování',
+        dictationStop: 'Zastavit diktování',
         bannerLabel: 'Zvolený jazyk je: 🇨🇿 Čeština',
       },
     },
@@ -39,6 +41,8 @@
         sendTitle: 'Send',
         openTitle: 'Open chat',
         closeTitle: 'Close chat',
+        dictationStart: 'Start dictation',
+        dictationStop: 'Stop dictation',
         bannerLabel: 'Language in use: 🇺🇸 English',
       },
     },
@@ -140,6 +144,25 @@
             if (btn.title !== texts.sendTitle) {
               btn.title = texts.sendTitle;
               btn.setAttribute('aria-label', texts.sendTitle);
+            }
+          });
+        root
+          .querySelectorAll('.vfrc-input-container button:not(#vfrc-send-message)')
+          .forEach((btn) => {
+            const currentTitle =
+              btn.title || btn.getAttribute('aria-label') || '';
+            if (currentTitle.match(/Start dictation|Spustit diktování/i)) {
+              if (btn.title !== texts.dictationStart) {
+                btn.title = texts.dictationStart;
+                btn.setAttribute('aria-label', texts.dictationStart);
+              }
+            } else if (
+              currentTitle.match(/Stop dictation|Zastavit diktování/i)
+            ) {
+              if (btn.title !== texts.dictationStop) {
+                btn.title = texts.dictationStop;
+                btn.setAttribute('aria-label', texts.dictationStop);
+              }
             }
           });
         root
