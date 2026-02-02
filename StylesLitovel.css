@@ -214,15 +214,15 @@
   --card-header-weight: 700;
   --card-header-color: #006FB9;
   --card-header-spacing: 0.02em;
-  --card-header-padding: 10px 15px 0 15px;
-  --card-header-margin-top: 10px;
+  --card-header-padding: 0;
+  --card-header-margin-top: 0;
   --card-header-line-height: 1.4;
 
   /* 10.4) Card description */
   --card-desc-size: 12px;
   --card-desc-color: #333333;
   --card-desc-line-height: 1.5;
-  --card-desc-padding: 5px 15px 10px 15px;
+  --card-desc-padding: 0;
   --card-desc-weight: normal;
   --card-desc-letter-spacing: normal;
 
