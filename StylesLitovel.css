@@ -300,7 +300,7 @@
   --ai-badge-text: "Odpověď byla generována pomocí AI";
   --ai-text-color: #FFFFFF;
   --ai-text-weight: 600;
-  --ai-text-size: inherit;
+  --ai-text-size: 12.5px;
   --ai-text-line-height: normal;
   --ai-text-letter-spacing: normal;
 
