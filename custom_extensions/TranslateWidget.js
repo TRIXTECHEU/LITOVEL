@@ -1,5 +1,4 @@
 /* TrixTech s.r.o. @2026 */
-
 (function () {
   const CONFIG = {
     styleId: 'vf-translate-dynamic-style',
@@ -25,6 +24,8 @@
         dictationStart: 'Spustit diktování',
         dictationStop: 'Zastavit diktování',
         bannerLabel: 'Zvolený jazyk je: 🇨🇿 Čeština',
+        sourceTitle: 'Zdroj',
+        sourceText: 'Zdroj',
       },
     },
     en: {
@@ -44,6 +45,8 @@
         dictationStart: 'Start dictation',
         dictationStop: 'Stop dictation',
         bannerLabel: 'Language in use: 🇺🇸 English',
+        sourceTitle: 'Source',
+        sourceText: 'Source', // Přidán textový překlad pro obsah tlačítka
       },
     },
   };
@@ -114,7 +117,7 @@
       `;
       const applyToRoot = (root) => {
         if (!root || !root.appendChild) return;
-        let styleEl = root.getElementById?.(CONFIG.styleId);
+        let styleEl = root.getElementById ? root.getElementById(CONFIG.styleId) : root.querySelector(`#${CONFIG.styleId}`);
         if (!styleEl) {
           styleEl = document.createElement('style');
           styleEl.id = CONFIG.styleId;
@@ -132,12 +135,14 @@
       if (!TRANSLATIONS[lang]) return;
       const texts = TRANSLATIONS[lang].attributes;
       const vfChat = document.getElementById(CONFIG.chatId);
+      
       const updateRootElements = (root) => {
         root.querySelectorAll('textarea.vfrc-chat-input').forEach((el) => {
           if (el.placeholder !== texts.placeholder) {
             el.placeholder = texts.placeholder;
           }
         });
+        
         root
           .querySelectorAll('button[id="vfrc-send-message"]')
           .forEach((btn) => {
@@ -146,30 +151,28 @@
               btn.setAttribute('aria-label', texts.sendTitle);
             }
           });
+          
         root
           .querySelectorAll('.vfrc-input-container button:not(#vfrc-send-message)')
           .forEach((btn) => {
-            const currentTitle =
-              btn.title || btn.getAttribute('aria-label') || '';
+            const currentTitle = btn.title || btn.getAttribute('aria-label') || '';
             if (currentTitle.match(/Start dictation|Spustit diktování/i)) {
               if (btn.title !== texts.dictationStart) {
                 btn.title = texts.dictationStart;
                 btn.setAttribute('aria-label', texts.dictationStart);
               }
-            } else if (
-              currentTitle.match(/Stop dictation|Zastavit diktování/i)
-            ) {
+            } else if (currentTitle.match(/Stop dictation|Zastavit diktování/i)) {
               if (btn.title !== texts.dictationStop) {
                 btn.title = texts.dictationStop;
                 btn.setAttribute('aria-label', texts.dictationStop);
               }
             }
           });
+          
         root
           .querySelectorAll('.vfrc-launcher, button.vfrc-launcher')
           .forEach((btn) => {
-            const currentTitle =
-              btn.title || btn.getAttribute('aria-label') || '';
+            const currentTitle = btn.title || btn.getAttribute('aria-label') || '';
             if (currentTitle.match(/Open|Otevřít/i)) {
               if (btn.title !== texts.openTitle) {
                 btn.title = texts.openTitle;
@@ -182,7 +185,27 @@
               }
             }
           });
+
+        root.querySelectorAll('div[role="button"][link]').forEach((el) => {
+          const currentTitle = el.getAttribute('title');
+          if (currentTitle === 'Source' || currentTitle === 'Zdroj:') {
+            if (currentTitle !== texts.sourceTitle) {
+              el.setAttribute('title', texts.sourceTitle);
+            }
+          }
+          el.querySelectorAll('div').forEach((innerDiv) => {
+            if (innerDiv.childNodes.length === 1 && innerDiv.childNodes[0].nodeType === Node.TEXT_NODE) {
+              const text = innerDiv.textContent.trim();
+              if (text === 'Source' || text === 'Zdroj') {
+                if (text !== texts.sourceText) {
+                  innerDiv.textContent = texts.sourceText;
+                }
+              }
+            }
+          });
+        });
       };
+      
       updateRootElements(document);
       if (vfChat?.shadowRoot) {
         updateRootElements(vfChat.shadowRoot);
