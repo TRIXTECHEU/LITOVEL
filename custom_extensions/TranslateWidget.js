@@ -14,7 +14,7 @@
         '--subheader-title-text': '"Poznejte město Litovel"',
         '--subheader-desc-text': '"prostřednictvím našeho AI asistenta"',
         '--system-status-text': '"Chat byl ukončen"',
-        '--ai-badge-text': '"Odpověď byla generována pomocí AI"',
+        '--ai-badge-text': '"Odpověď byla vygenerována pomocí AI"',
       },
       attributes: {
         placeholder: 'Napište váš dotaz...',
@@ -46,7 +46,7 @@
         dictationStop: 'Stop dictation',
         bannerLabel: 'Language in use: 🇺🇸 English',
         sourceTitle: 'Source',
-        sourceText: 'Source', // Přidán textový překlad pro obsah tlačítka
+        sourceText: 'Source',
       },
     },
   };
