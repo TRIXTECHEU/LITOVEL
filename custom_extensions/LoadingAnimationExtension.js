@@ -19,14 +19,14 @@
       thinking: [
         'Zpracovávám záznamy {place}...',
         'Vyhodnocuji informace {place}...',
-        'Připravuji přehled pro {place}...',
+        'Připravuji přehled pro {placeAcc}...',
         'Sestavuji odpověď na základě dat {place}...',
         'Zpracovávám nalezené informace...',
         'Formuluji odpověď...',
         'Ověřuji správnost informací...',
         'Sestavuji srozumitelný výstup...',
         'Finalizuji výsledek...',
-        'Generuji odpověď pro vás...'
+        'Generuji odpověď...'
       ],
       done: 'Vyhledávání dokončeno',
       a11y: 'Asistent připravuje odpověď'
@@ -47,14 +47,14 @@
       thinking: [
         'Spracúvam záznamy {place}...',
         'Vyhodnocujem informácie {place}...',
-        'Pripravujem prehľad pre {place}...',
+        'Pripravujem prehľad pre {placeAcc}...',
         'Skladám odpoveď na základe dát {place}...',
         'Spracúvam nájdené informácie...',
         'Formulujem odpoveď...',
         'Overujem správnosť informácií...',
         'Zostavujem zrozumiteľný výstup...',
         'Finalizujem výsledok...',
-        'Generujem odpoveď pre vás...'
+        'Generujem odpoveď...'
       ],
       done: 'Vyhľadávanie dokončené',
       a11y: 'Asistent pripravuje odpoveď'
@@ -82,7 +82,7 @@
         'Verifying information accuracy...',
         'Composing a clear output...',
         'Finalising the result...',
-        'Generating a response for you...'
+        'Generating a response...'
       ],
       done: 'Search complete',
       a11y: 'Assistant is preparing a response'
@@ -103,14 +103,14 @@
       thinking: [
         'Einträge aus {place} werden verarbeitet...',
         'Informationen aus {place} werden ausgewertet...',
-        'Übersicht für {place} wird vorbereitet...',
+        'Übersicht für {placeAcc} wird vorbereitet...',
         'Antwort auf Basis der Daten von {place} wird erstellt...',
         'Gefundene Informationen werden verarbeitet...',
         'Eine Antwort wird formuliert...',
         'Richtigkeit der Informationen wird geprüft...',
         'Klare Ausgabe wird zusammengestellt...',
         'Ergebnis wird abgeschlossen...',
-        'Antwort für Sie wird generiert...'
+        'Antwort wird generiert...'
       ],
       done: 'Suche abgeschlossen',
       a11y: 'Assistent bereitet eine Antwort vor'
@@ -120,10 +120,10 @@
         'Weryfikuję wpisy w bazie danych {place}...',
         'Przeszukuję dokumenty {place}...',
         'Pobieram aktualne dane {place}...',
-        'Przeglądamo system informacyjny {place}...',
+        'Przeglądam system informacyjny {place}...',
         'Wczytuję odpowiednie rekordy z {place}...',
         'Łączę się z bazą danych {place}...',
-        'Analizuję Twoje pytanie...',
+        'Analizuję zapytanie...',
         'Sprawdzam dostępne dokumenty...',
         'Przeszukuję dostępne źródła...',
         'Uzyskuję dostęp do bazy wiedzy...'
@@ -138,7 +138,7 @@
         'Weryfikuję poprawność informacji...',
         'Tworzę jasną odpowiedź...',
         'Finalizuję wynik...',
-        'Generuję odpowiedź dla Ciebie...'
+        'Generuję odpowiedź...'
       ],
       done: 'Wyszukiwanie zakończone',
       a11y: 'Asystent przygotowuje odpowiedź'
@@ -166,7 +166,7 @@
         'Перевіряю правильність інформації...',
         'Готую зрозумілий результат...',
         'Завершую результат...',
-        'Генерую відповідь для вас...'
+        'Генерую відповідь...'
       ],
       done: 'Пошук завершено',
       a11y: 'Асистент готує відповідь'
@@ -194,7 +194,7 @@
         'Ellenőrzöm az információk pontosságát...',
         'Összeállítom az érthető kimenetet...',
         'Véglegesítem az eredményt...',
-        'Választ generálok Önnek...'
+        'Választ generálok...'
       ],
       done: 'Keresés kész',
       a11y: 'Az asszisztens választ készít elő'
@@ -206,6 +206,16 @@
     sk: { city: 'mesta',      town: 'obce'         },
     en: { city: 'the city',   town: 'the town'     },
     de: { city: 'der Stadt',  town: 'der Gemeinde' },
+    pl: { city: 'miasta',     town: 'gminy'        },
+    uk: { city: 'міста',      town: 'громади'      },
+    hu: { city: 'város',      town: 'község'       }
+  };
+
+  const PLACE_LABELS_ACC = {
+    cs: { city: 'město',      town: 'obec'         },
+    sk: { city: 'mesto',      town: 'obec'         },
+    en: { city: 'the city',   town: 'the town'     },
+    de: { city: 'die Stadt',  town: 'die Gemeinde' },
     pl: { city: 'miasta',     town: 'gminy'        },
     uk: { city: 'міста',      town: 'громади'      },
     hu: { city: 'város',      town: 'község'       }
@@ -346,118 +356,118 @@
         a11y:     customPhrases[lang]?.a11y     ?? basePhrases.a11y
       };
 
-      const placeLabels   = PLACE_LABELS[lang] ?? PLACE_LABELS.en;
-      const placeLabel    = placeType !== 'other' ? (placeLabels[placeType] ?? '') : '';
-      const searchPhrase  = fmt(useRandom ? pickRandom(dict.search)   : dict.search[0],   { place: placeLabel });
-      const thinkPhrase   = fmt(useRandom ? pickRandom(dict.thinking) : dict.thinking[0], { place: placeLabel });
+      const placeLabels    = PLACE_LABELS[lang]     ?? PLACE_LABELS.en;
+      const placeLabelsAcc = PLACE_LABELS_ACC[lang] ?? PLACE_LABELS_ACC.en;
+      const placeLabel     = placeType !== 'other' ? (placeLabels[placeType]    ?? '') : '';
+      const placeAccLabel  = placeType !== 'other' ? (placeLabelsAcc[placeType] ?? '') : '';
+      const fmtVars        = { place: placeLabel, placeAcc: placeAccLabel };
+      const searchPhrase   = fmt(useRandom ? pickRandom(dict.search)   : dict.search[0],   fmtVars);
+      const thinkPhrase    = fmt(useRandom ? pickRandom(dict.thinking) : dict.thinking[0], fmtVars);
       const donePhrase    = dict.done;
 
       let isReducedMotion = false;
       try { isReducedMotion = window.matchMedia?.('(prefers-reduced-motion:reduce)').matches ?? false; }
       catch (e) {}
 
-      if (!document.getElementById('vfrc-la-styles')) {
-        const globalStyles = document.createElement('style');
-        globalStyles.id = 'vfrc-la-styles';
-        globalStyles.textContent = `
-          .vfrc-message.vfrc-message--extension.LoadingAnimation {
-            width: 100%; display: block;
-            margin-bottom: 2px !important; padding-bottom: 0 !important;
-          }
-          .LoadingAnimation .la-box {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px 14px; width: 100%; box-sizing: border-box;
-            background: var(--la-bg); border-radius: var(--la-r);
-            border: 1px solid var(--la-bd); box-shadow: var(--la-sh);
-            position: relative; overflow: hidden;
-            transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
-          }
-          .LoadingAnimation .la-box::before {
-            content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
-          }
-          .LoadingAnimation .la-box.la-t {
-            border-color: var(--la-bd-t);
-            box-shadow: 0 0 0 3px rgba(14,165,233,.1);
-          }
-          .LoadingAnimation .la-box.la-t::before { animation: la-shimmer 2.5s infinite; }
-          @keyframes la-shimmer { 0% { left: -100%; } 100% { left: 150%; } }
-          .LoadingAnimation .la-box.la-s { background: var(--la-bg-s); border-color: var(--la-bd-s); }
-          .LoadingAnimation .la-icon {
-            display: var(--la-icon-display);
-            align-items: center; justify-content: center;
-            width: 20px; height: 20px; flex-shrink: 0;
-            transition: transform .35s cubic-bezier(.34,1.56,.64,1);
-          }
-          .LoadingAnimation .la-ico-search {
-            color: #64748B; width: 18px; height: 18px;
-            animation: la-scan 2s infinite ease-in-out;
-          }
-          @keyframes la-scan { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-          .LoadingAnimation .la-ico-stars { width: 20px; height: 20px; }
-          .LoadingAnimation .la-ico-stars path { fill: var(--la-ac); transition: fill .3s; }
-          .LoadingAnimation .la-box.la-t .la-ico-stars path { animation: la-cpulse 3s infinite alternate; }
-          @keyframes la-cpulse { 0% { fill: var(--la-ac); } 100% { fill: var(--la-ac2); } }
-          .LoadingAnimation .la-star-a { animation: la-sp 2s infinite; transform-origin: center; }
-          .LoadingAnimation .la-star-b { animation: la-sp 2s 1s infinite; transform-origin: center; }
-          @keyframes la-sp { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.6); opacity: .6; } }
-          .LoadingAnimation .la-ico-check { color: var(--la-tx-s); width: 20px; height: 20px; }
-          .LoadingAnimation .la-chk {
-            stroke-dasharray: 20; stroke-dashoffset: 20;
-            animation: la-draw .45s forwards;
-          }
-          @keyframes la-draw { to { stroke-dashoffset: 0; } }
-          .LoadingAnimation .la-content { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-          .LoadingAnimation .la-text {
-            color: var(--la-tx);
-            font-size: var(--la-font-size);
-            font-family: var(--la-font-family);
-            font-weight: 500; min-height: 18px; line-height: 1.5;
-            display: flex; align-items: center; transition: color .25s;
-          }
-          .LoadingAnimation .la-box.la-t .la-text { color: var(--la-tx-t); font-weight: 600; }
-          .LoadingAnimation .la-box.la-s .la-text { color: var(--la-tx-s); font-weight: 600; }
-          .LoadingAnimation .la-cursor::after {
-            content: ""; display: inline-block; width: 2px; height: 12px;
-            background: currentColor; margin-left: 3px; opacity: .7;
-            animation: la-blink .8s steps(2) infinite;
-          }
-          @keyframes la-blink { 50% { opacity: 0; } }
-          .LoadingAnimation.la-compact .la-box { padding: 9px 12px; gap: 10px; }
-          .LoadingAnimation.la-minimal .la-box { padding: 8px 10px; gap: 10px; box-shadow: none; background: transparent; }
-          @media (prefers-reduced-motion: reduce) {
-            .LoadingAnimation .la-box::before,
-            .LoadingAnimation .la-ico-search,
-            .LoadingAnimation .la-box.la-t .la-ico-stars path,
-            .LoadingAnimation .la-star-a, .LoadingAnimation .la-star-b,
-            .LoadingAnimation .la-cursor::after {
-              animation: none !important; transition: none !important;
-            }
-          }
-        `;
-        document.head.appendChild(globalStyles);
-      }
-
       const container = document.createElement('div');
       container.className = `vfrc-message vfrc-message--extension LoadingAnimation la-${variant}`;
       container.setAttribute('role', 'status');
       container.setAttribute('aria-live', 'polite');
       container.setAttribute('aria-label', a11yLabel ?? dict.a11y);
-      container.style.setProperty('--la-bg',          theme.bg);
-      container.style.setProperty('--la-bd',          theme.border);
-      container.style.setProperty('--la-sh',          theme.shadow);
-      container.style.setProperty('--la-r',           theme.borderRadius);
-      container.style.setProperty('--la-tx',          theme.text);
-      container.style.setProperty('--la-tx-t',        theme.textThinking);
-      container.style.setProperty('--la-tx-s',        theme.textSuccess);
-      container.style.setProperty('--la-ac',          theme.accent);
-      container.style.setProperty('--la-ac2',         theme.accentAlt);
-      container.style.setProperty('--la-bd-t',        theme.borderThinking);
-      container.style.setProperty('--la-bd-s',        theme.borderSuccess);
-      container.style.setProperty('--la-bg-s',        theme.bgSuccess);
-      container.style.setProperty('--la-font-size',   theme.fontSize);
-      container.style.setProperty('--la-font-family', theme.fontFamily);
-      container.style.setProperty('--la-icon-display',showIcon ? 'flex' : 'none');
+      container.style.setProperty('--la-bg',           theme.bg);
+      container.style.setProperty('--la-bd',           theme.border);
+      container.style.setProperty('--la-sh',           theme.shadow);
+      container.style.setProperty('--la-r',            theme.borderRadius);
+      container.style.setProperty('--la-tx',           theme.text);
+      container.style.setProperty('--la-tx-t',         theme.textThinking);
+      container.style.setProperty('--la-tx-s',         theme.textSuccess);
+      container.style.setProperty('--la-ac',           theme.accent);
+      container.style.setProperty('--la-ac2',          theme.accentAlt);
+      container.style.setProperty('--la-bd-t',         theme.borderThinking);
+      container.style.setProperty('--la-bd-s',         theme.borderSuccess);
+      container.style.setProperty('--la-bg-s',         theme.bgSuccess);
+      container.style.setProperty('--la-font-size',    theme.fontSize);
+      container.style.setProperty('--la-font-family',  theme.fontFamily);
+      container.style.setProperty('--la-icon-display', showIcon ? 'flex' : 'none');
+
+      const styleEl = document.createElement('style');
+      styleEl.textContent = `
+        .vfrc-message.vfrc-message--extension.LoadingAnimation {
+          width: 100%; display: block;
+          margin-bottom: 2px !important; padding-bottom: 0 !important;
+        }
+        .LoadingAnimation .la-box {
+          display: flex; align-items: center; gap: 12px;
+          padding: 10px 14px; width: 100%; box-sizing: border-box;
+          background: var(--la-bg); border-radius: var(--la-r);
+          border: 1px solid var(--la-bd); box-shadow: var(--la-sh);
+          position: relative; overflow: hidden;
+          transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+        .LoadingAnimation .la-box::before {
+          content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
+        }
+        .LoadingAnimation .la-box.la-t {
+          border-color: var(--la-bd-t);
+          box-shadow: 0 0 0 3px rgba(14,165,233,.1);
+        }
+        .LoadingAnimation .la-box.la-t::before { animation: la-shimmer 2.5s infinite; }
+        @keyframes la-shimmer { 0% { left: -100%; } 100% { left: 150%; } }
+        .LoadingAnimation .la-box.la-s { background: var(--la-bg-s); border-color: var(--la-bd-s); }
+        .LoadingAnimation .la-icon {
+          display: var(--la-icon-display);
+          align-items: center; justify-content: center;
+          width: 20px; height: 20px; flex-shrink: 0;
+          transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+        }
+        .LoadingAnimation .la-ico-search {
+          color: #64748B; width: 18px; height: 18px;
+          animation: la-scan 2s infinite ease-in-out;
+        }
+        @keyframes la-scan { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .LoadingAnimation .la-ico-stars { width: 20px; height: 20px; }
+        .LoadingAnimation .la-ico-stars path { fill: var(--la-ac); transition: fill .3s; }
+        .LoadingAnimation .la-box.la-t .la-ico-stars path { animation: la-cpulse 3s infinite alternate; }
+        @keyframes la-cpulse { 0% { fill: var(--la-ac); } 100% { fill: var(--la-ac2); } }
+        .LoadingAnimation .la-star-a { animation: la-sp 2s infinite; transform-origin: center; }
+        .LoadingAnimation .la-star-b { animation: la-sp 2s 1s infinite; transform-origin: center; }
+        @keyframes la-sp { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.6); opacity: .6; } }
+        .LoadingAnimation .la-ico-check { color: var(--la-tx-s); width: 20px; height: 20px; }
+        .LoadingAnimation .la-chk {
+          stroke-dasharray: 20; stroke-dashoffset: 20;
+          animation: la-draw .45s forwards;
+        }
+        @keyframes la-draw { to { stroke-dashoffset: 0; } }
+        .LoadingAnimation .la-content { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .LoadingAnimation .la-text {
+          color: var(--la-tx);
+          font-size: var(--la-font-size);
+          font-family: var(--la-font-family);
+          font-weight: 500; min-height: 18px; line-height: 1.5;
+          display: flex; align-items: center; transition: color .25s;
+        }
+        .LoadingAnimation .la-box.la-t .la-text { color: var(--la-tx-t); font-weight: 600; }
+        .LoadingAnimation .la-box.la-s .la-text { color: var(--la-tx-s); font-weight: 600; }
+        .LoadingAnimation .la-cursor::after {
+          content: ""; display: inline-block; width: 2px; height: 12px;
+          background: currentColor; margin-left: 3px; opacity: .7;
+          animation: la-blink .8s steps(2) infinite;
+        }
+        @keyframes la-blink { 50% { opacity: 0; } }
+        .LoadingAnimation.la-compact .la-box { padding: 9px 12px; gap: 10px; }
+        .LoadingAnimation.la-minimal .la-box { padding: 8px 10px; gap: 10px; box-shadow: none; background: transparent; }
+        @media (prefers-reduced-motion: reduce) {
+          .LoadingAnimation .la-box::before,
+          .LoadingAnimation .la-ico-search,
+          .LoadingAnimation .la-box.la-t .la-ico-stars path,
+          .LoadingAnimation .la-star-a, .LoadingAnimation .la-star-b,
+          .LoadingAnimation .la-cursor::after {
+            animation: none !important; transition: none !important;
+          }
+        }
+      `;
+      container.appendChild(styleEl);
 
       const box      = document.createElement('div');
       box.className  = 'la-box';
@@ -560,5 +570,5 @@
       observer.observe(document.body, { childList: true, subtree: true });
     }
   };
-  
+
 }());
