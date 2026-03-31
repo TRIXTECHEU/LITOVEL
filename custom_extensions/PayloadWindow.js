@@ -359,32 +359,34 @@
 
 @media (max-width:480px){
   #vfCta.vf-cta{ 
-    right: 12px !important;
+    right: 20px !important;
     left: auto !important;
-    bottom: calc(70px + 16px) !important;
+    bottom: calc(80px + 20px) !important;
+    transform: translateY(8px) scale(.98) !important;
+  }
+  #vfCta.vf-cta.is-in{ 
+    opacity: 1 !important; 
+    transform: translateY(0) scale(1) !important; 
+    visibility: visible !important; 
+    pointer-events: auto !important; 
+  }
+  #vfCta.vf-cta.is-out{ 
+    opacity: 0 !important; 
+    transform: translateY(8px) scale(.98) !important; 
+    visibility: hidden !important; 
+    pointer-events: none !important;
   }
   #vfCta .vf-card{ 
-    width: calc(100vw - 24px) !important;
-    max-width: 100% !important;
+    width: calc(100vw - 32px) !important; 
+    max-width: 240px !important;
     min-width: auto !important;
-    padding: 12px !important;
-    border-radius: 14px !important;
+    margin: 0 !important;
   }
-  #vfCta .vf-avatar{ 
-    width: 28px !important; 
-    height: 28px !important; 
-    flex: 0 0 28px !important;
-    max-width: 28px !important;
-    max-height: 28px !important;
-    min-width: 28px !important;
-    min-height: 28px !important;
-  }
-  #vfCta .vf-title{ font-size: 13px !important; }
-  #vfCta .vf-desc{ font-size: 12.5px !important; line-height: 1.4 !important; }
+  #vfCta .vf-title{ font-size: 14px !important; }
+  #vfCta .vf-desc{ font-size: 13px !important; }
   #vfCta #vfOpenChat.vf-btn{ 
-    padding: 11px 18px !important; 
-    font-size: 14px !important; 
-    border-radius: 12px !important;
+    padding: 12px 20px !important; 
+    font-size: 15px !important; 
   }
 }
   `.trim();
