@@ -26,16 +26,22 @@
   --icon-focus-color: rgba(0, 123, 204, 0.35);
   --icon-focus-radius: 8px;
 
+  /* Sound icon */
+  --icon-sound-size: 42px;
+  --icon-sound-color: #FFFC;
+  --icon-sound-color-hover: #FFFFFF;
+
   /* Refresh Icon */
   --icon-refresh-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-refresh.svg");
   --icon-refresh-size: 38px;
-  --icon-refresh-hover-transform: translate(-50%, -50%) scale(1.2) rotate(180deg);
-  
+  --icon-refresh-opacity: 0.8;
+  --icon-refresh-opacity-hover: 1;
+
   /* Close Icon */
   --icon-close-url: url("https://trixtecheu.github.io/LITOVEL/images/icons/icon-close.svg");
   --icon-close-size: 28px;
-  --icon-close-hover-transform: translate(-50%, -50%) scale(1.2);
-  --icon-hover-filter: brightness(1.1);
+  --icon-close-opacity: 0.8;
+  --icon-close-opacity-hover: 1;
 
 
   /* 3) System buttons (start new chat, cancel) */
@@ -181,12 +187,6 @@
   /* Shine Effect */
   --main-btn-shine-display: block;
 
-  /* Custom JS Icon Support */
-  --js-icon-display: block;
-  --js-icon-size: 22px;
-  --js-icon-gap: 8px;
-  --js-btn-padding-left: 16px;
-
 
   /* 9) Status line (chat has ended) */
   --system-status-margin-top: 15px;
@@ -309,7 +309,7 @@
   --scroll-btn-size: 16px 16px;
   --scroll-btn-border: 2px solid #006FB9;
 
-
+  
   /* 12) Footer input and send button */
   /* Placeholder */
   --input-placeholder-size: 16px;
@@ -353,6 +353,35 @@
   
   --send-btn-hover-bg: #005A9E;
   --send-btn-hover-scale: 1.05;
+
+  /* Voice Button */
+  --voice-btn-size: 40px;
+  --voice-btn-radius: 50%;
+  --voice-btn-bg: #006FB9;
+  --voice-btn-bg-hover: #005A9E;
+  --voice-btn-border: none;
+  --voice-btn-shadow: none;
+  --voice-btn-transition: all 0.2s ease;
+  --voice-btn-color: #656D75;
+  --voice-btn-color-hover: #1A1E23;
+  --voice-icon-size: 24px;
+
+  /* Voice Close Button */
+  --voice-close-btn-size: 40px;
+  --voice-close-btn-radius: 50%;
+  --voice-close-btn-bg: #F1F2F2;
+  --voice-close-btn-bg-hover: #E2E4E5;
+  --voice-close-btn-border: none;
+  --voice-close-btn-color: #656D75;
+  --voice-close-btn-color-hover: #1A1E23;
+  --voice-close-icon-size: 16px;
+
+  /* Voice Text */
+  --voice-text-listening: "Poslouchám...";
+  --voice-text-muted: "Ztlumeno...";
+  --voice-text-connecting: "Připojuji...";
+  --voice-text-thinking: "Přemýšlím...";
+  --voice-text-interrupt: "Přerušte mluvením";
 
 
   /* 13) Footer logo and launcher */
