@@ -335,6 +335,7 @@
   --input-text-color: #1A1E23;
   --input-line-height: 20px;
   --input-text-padding: 2px 0 0;
+  --voice-input-transform: translateY(3px);
 
   /* Send Button */
   --send-btn-size: 40px;
