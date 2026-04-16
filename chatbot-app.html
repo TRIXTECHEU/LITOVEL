@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#ffffff">
+  <title>Chatbot Litovel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #f5f7fa;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  // Načtení extensions bez document.write()
+  const extensions = [
+    'SelectExtension.js',
+    'FileUploadExtension.js',
+    'LoadingAnimationExtension.js',
+    'TranslateWidget.js',
+    'PayloadWindow.js'
+  ];
+
+  const baseURL = 'https://trixtecheu.github.io/LITOVEL/custom_extensions/';
+
+  function loadScripts(scripts, index, callback) {
+    if (index >= scripts.length) {
+      callback();
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = baseURL + scripts[index];
+    script.onload = () => loadScripts(scripts, index + 1, callback);
+    script.onerror = () => loadScripts(scripts, index + 1, callback);
+    document.head.appendChild(script);
+  }
+
+  function initVoiceflow() {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs';
+    script.onload = function () {
+      window.voiceflow.chat.load({
+        verify: { projectID: '6853d3fb3482f50704d3d77c' },
+        url: 'https://general-runtime.voiceflow.com',
+        versionID: 'production',
+        render: { mode: 'overlay' },
+        allowDangerousHTML: true,
+        assistant: {
+          extensions: [
+            window.LoadingAnimationExtension,
+            window.FileUploadExtension,
+            window.TranslateWidget,
+            window.VFSelectFixExtension
+          ].filter(Boolean),
+          stylesheet: 'https://trixtecheu.github.io/LITOVEL/StylesLitovel.css'
+        }
+      }).then(() => {
+        // Automaticky otevřít chatbot při načtení stránky
+        if (window.voiceflow && window.voiceflow.chat) {
+          window.voiceflow.chat.open();
+        }
+        if (typeof window.PayloadWindowOnReady === 'function') {
+          try { window.PayloadWindowOnReady(window.voiceflow.chat); } catch (e) {}
+        }
+      });
+    };
+    document.body.appendChild(script);
+  }
+
+  loadScripts(extensions, 0, initVoiceflow);
+</script>
+
+</body>
+</html>
